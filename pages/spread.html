@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Spread operator</h1>
+  <a href="../index.html">назад</a>
+  <p>Коротко: ... (spread) разворачивает итерируемое значение (массив, строку, Set, Map-итератор и т. п.) в список элементов. Тот же синтаксис используется для rest при сборе оставшихся аргументов/свойств — контекст определяет поведение. Ниже — подробно с практикой и подводными камнями.</p>
+  <h2>1) Разворачивание массивов (конкатенация, копирование)</h2>
+<pre>
+  <code class="lang-js">
+    const a = [1, 2, 3];
+
+    // копия (поверхностная)
+    const copy = [...a];
+    console.log(copy); // [1,2,3]
+    console.log(copy === a); // false
+
+    // объединение массивов
+    const b = [4, 5];
+    const merged = [...a, ...b]; // [1,2,3,4,5]
+
+    // вставка элементов в середину
+    const mid = [0, ...a, 99]; // [0,1,2,3,99]
+  </code>
+</pre>
+  <p>Почему важно: [...] создаёт новый массив — это удобный способ избежать мутаций исходного массива.</p>
+  <h2>2) Spread для любых итерируемых (строки, Set...)</h2>
+<pre>
+  <code class="lang-js">
+    console.log([..."hello"]); // ['h','e','l','l','o']
+
+    const s = new Set([1,2,2,3]);
+    console.log([...s]); // [1,2,3] — удобно для удаления дубликатов
+
+    const unique = arr => [...new Set(arr)];
+  </code>
+</pre>
+  <h2>3) Вызов функций и Math</h2>
+<pre>
+  <code class="lang-js">
+    const nums = [5, -1, 10];
+    console.log(Math.max(...nums)); // 10
+
+    // вместо apply:
+    func(...args);
+  </code>
+</pre>
+  <h2>4) Spread для объектов — копирование и объединение (с ES2018)</h2>
+<pre>
+  <code class="lang-js">
+    const obj1 = { a: 1, b: 2 };
+    const obj2 = { b: 20, c: 3 };
+
+    // объединение (порядок важен — позже переопределяет)
+    const mergedObj = { ...obj1, ...obj2 }; // { a:1, b:20, c:3 }
+
+    // копия
+    const copyObj = { ...obj1 };
+  </code>
+</pre>
+  <p>Важно: object spread копирует перечисляемые собственные свойства (own enumerable). Символы, геттеры/сеттеры, прототип — ведут себя по-особому.</p>
+  <h2>5) Rest-параметры vs Spread — один синтаксис, разные роли</h2>
+<pre>
+  <code class="lang-js">
+    // rest в объявлении функции (собирает все оставшиеся аргументы в массив)
+    function sum(first, ...rest) {
+      return first + rest.reduce((s, v) => s + v, 0);
+    }
+    sum(1,2,3,4); // first=1, rest=[2,3,4]
+
+    // spread при вызове (разворачивает массив в аргументы)
+    const arr = [1,2,3];
+    sum(...arr); // 1 + (2+3)
+  </code>
+</pre>
+  <p>Аналогично при деструктуризации:</p>
+<pre>
+  <code class="lang-js">
+    const [first, ...restItems] = [10,20,30,40];
+    const { a, ...others } = { a: 1, b: 2, c: 3 }; // others = { b:2, c:3 }
+  </code>
+</pre>
+</body>
+</html>

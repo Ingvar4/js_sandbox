@@ -4,16 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../styles/prism.css">
   <script src="/main.js" defer></script>
   <script src="../scripts/prism.js" defer></script>
 </head>
 <body>
-  <h2>Деструктуризация</h2>
+  <h1>Деструктуризация</h1>
+  <a href="../index.html">назад</a>
   <p>Деструктуризация — синтаксический сахар для «вынимания» значений из массивов и объектов и присвоения их переменным в одном выражении. Делает код короче, чище и выразительнее — особенно при работе с API-ответами, props в React, возвращаемыми кортежами и т.д.</p>
-  <h3>Синтаксис</h3>
-  <h4>Массивы (array destructuring)</h4>
+  <h2>Синтаксис</h2>
+  <h3>Массивы (array destructuring)</h3>
 <pre>
   <code class="lang-js">
     const arr = [10, 20, 30];
@@ -34,7 +35,7 @@
     // x = 2, y = 1
   </code>
 </pre>
-  <h4>Объекты (object destructuring)</h4>
+  <h3>Объекты (object destructuring)</h3>
 <pre>
   <code class="lang-js">
     const user = { id: 42, name: 'John', age: 30 };
@@ -51,7 +52,7 @@
     const { country = 'RU' } = user;
   </code>
 </pre>
-  <h3>Деструктуризация в присваивании существующим переменным</h3>
+  <h2>Деструктуризация в присваивании существующим переменным</h2>
   <p>Если ты присваиваешь объект в уже объявленные переменные, нужно обернуть левую часть в скобки — иначе JS решит, что это блок.</p>
 <pre>
   <code class="lang-js">
@@ -59,7 +60,7 @@
     ({ a, b } = { a: 1, b: 2 });
   </code>
 </pre>
-  <h3>Rest и Spread — отличие и применение</h3>
+  <h2>Rest и Spread — отличие и применение</h2>
   <ul>
     <li>...rest в деструктуризации собирает оставшиеся элементы/свойства:</li>
 <pre>
@@ -76,16 +77,16 @@
 </pre>
     <li>В объектной деструктуризации ...rest содержит только own enumerable свойства (не берёт прототипные и не включает символы по умолчанию).</li>
   </ul>
-  <h3>Практические примеры из работы</h3>
-  <h4>A. React — props и хуки</h4>
+  <h2>Практические примеры из работы</h2>
+  <h3>A. React — props и хуки</h3>
 <pre>
-  <code class="lang-jsx">
+  <code class="lang-js">
     // Functional component: props destructuring
     function UserCard({ user: { id, name, avatar }, onClick }) {
       return (
         &lt;div onClick={() => onClick(id)}>
           &lt;img src={avatar} alt={name} />
-          &lt;h3>{name}&lt;/h3>
+          &lt;h2>{name}&lt;/h2>
         &lt;/div>
       );
     }
@@ -95,7 +96,7 @@
     const [state, dispatch] = useReducer(reducer, initialState);
   </code>
 </pre>
-  <h4>B. API: извлечение нужных полей из ответа</h4>
+  <h3>B. API: извлечение нужных полей из ответа</h3>
 <pre>
   <code class="lang-js">
     // Предположим, fetch возвращает объект { data: { user: { id, name }}, meta: {...} }
@@ -106,7 +107,7 @@
     // Теперь id и name безопасно получены — если data или user нет, ошибки не будет
   </code>
 </pre>
-  <h4>C. Express / route handler — параметры и query</h4>
+  <h3>C. Express / route handler — параметры и query</h3>
 <pre>
   <code class="lang-js">
     app.get('/search', (req, res) => {
@@ -115,7 +116,7 @@
     });
   </code>
 </pre>
-  <h4>D. Object.entries / Map</h4>
+  <h3>D. Object.entries / Map</h3>
 <pre>
   <code class="lang-js">
     const map = new Map([['a', 1], ['b', 2]]);
@@ -129,7 +130,7 @@
     }
   </code>
 </pre>
-  <h3>Вывод:</h3>
+  <h2>Вывод:</h2>
   <ul>
     <li>Массив: <code>[a, b, ...rest] = arr</code></li>
     <li>Объект: <code>{ a, b: alias, c = 5, ...rest } = obj</code></li>

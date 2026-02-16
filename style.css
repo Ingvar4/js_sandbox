@@ -29,7 +29,7 @@ a {
 }
 
 p {
-  font-size: 2em;
+  font-size: 1.2em;
 }
 
 pre {
@@ -44,7 +44,7 @@ code {
   background-color: #fff4da13;
   padding: 1px 4px;
   border-radius: 4px;
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-family: 'Courier New', Courier, monospace;
 }
 
