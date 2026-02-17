@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Array Methods</h1>
+  <a href="../index.html">назад</a>
+  
+  <h2>Основные методы — что делают, примеры и советы</h2>
+  <p><b>Mutating (мутирующие)</b></p>
+<pre>
+  <code class="lang-js">
+    arr.push(item)    // добавляет в конец, возвращает новую length
+    arr.pop()         // удаляет последний, возвращает элемент
+    arr.shift()       // удаляет первый (O(n)), возвращает элемент
+    arr.unshift(x)    // вставляет в начало (O(n)), возвращает length
+    arr.splice(i, n, ...items) // удаляет/вставляет; возвращает удалённые элементы
+    arr.sort(fn)      // сортирует на месте, возвращает тот же массив
+    arr.reverse()     // на месте
+    arr.fill(v, start?, end?) // заполняет на месте
+  </code>
+</pre>
+  <p><b>Non-mutating (не мутируют)</b></p>
+<pre>
+  <code class="lang-js">
+    const mapped = arr.map(x => x * 2)        // преобразование
+    const filtered = arr.filter(x => x.active) // отбор
+    const sliced = arr.slice(0, 10)           // копия части
+    const concat = arr.concat(other)          // новый массив
+    const flat = arr.flat(depth)              // группировка вложенных массивов
+    const flatMap = arr.flatMap(x => [x, x*2])// map + flatten на 1 уровень
+  </code>
+</pre>
+</body>
+</html>
