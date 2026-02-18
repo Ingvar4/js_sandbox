@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Ternary Operator ?:</h1>
+  <a href="../index.html">назад</a>
+  <p>Тернарный оператор в JavaScript — это компактный условный оператор, позволяющий написать if ... else в виде выражения. Его синтаксис:</p>
+<pre>
+  <code class="lang-js">
+    condition ? exprIfTrue : exprIfFalse
+  </code>
+</pre>
+  <p>Где condition — выражение (приводится к boolean), exprIfTrue и exprIfFalse — любые выражения. Тернарный оператор возвращает значение — в отличие от if/else, это выражение, а не инструкция. Поэтому его можно использовать там, где ожидается значение (присвоение, возврат из функции, шаблонная строка, JSX и т.д.).</p>
+  <h2>Ключевые свойства и важные моменты</h2>
+  <ul>
+    <li>Это выражение, а не инструкция: let x = a ? b : c;.</li>
+    <li>Право-ассоциативен: a ? b : c ? d : e читается как a ? b : (c ? d : e).</li>
+    <li>Выполняется (оценится) только та ветвь, которая выбрана — вторая ветвь не вычисляется (как if).</li>
+    <li>Оба результата могут быть любого типа — числа, строки, объекты, функции и т.д.</li>
+    <li>Нельзя опускать : exprIfFalse — обе части обязательны.</li>
+    <li>Хорош для короткой логики, но злоупотребление (особенно вложенные тернарники) ухудшает читаемость.</li>
+  </ul>
+  <h2>Простые примеры</h2>
+  <p>Базовый пример:</p>
+<pre>
+  <code class="lang-js">
+    const age = 20;
+    const canDrink = age >= 21 ? 'yes' : 'no';
+    console.log(canDrink); // 'no' (в большинстве стран порога 21)
+  </code>
+</pre>
+  <p>Использование в присвоении:</p>
+<pre>
+  <code class="lang-js">
+    let fee = isMember ? 2.0 : 10.0;
+  </code>
+</pre>
+  <p>Вызов функции в ветвях:</p>
+<pre>
+  <code class="lang-js">
+    const result = isOk ? doWhenOk() : doWhenFail();
+  </code>
+</pre>
+  <p>В шаблонной строке:</p>
+<pre>
+  <code class="lang-js">
+    const user = { name: 'Игорь', isAdmin: false };
+    const label = `${user.name} — ${user.isAdmin ? 'админ' : 'пользователь'}`;
+  </code>
+</pre>
+  <p>Условный className:</p>
+<pre>
+  <code class="lang-js">
+    const isActive = true;
+    const className = `btn ${isActive ? 'btn--active' : 'btn--idle'}`;
+    // btn btn--active
+  </code>
+</pre>
+  <p>JSX (React):</p>
+<pre>
+  <code class="lang-js">
+    // рендерим разный контент в зависимости от состояния
+    function Welcome({ user }) {
+      return (
+        &lt;div>
+          {user ? &lt;p>Привет, {user.name}!&lt;/p> : &lt;p>Пожалуйста, войдите.&lt;/p>}
+        &lt;/div>
+      );
+    }
+
+    // короткий вариант для небольших ветвлений (но осторожно с читабельностью)
+    &lt;div>{isLoading ? 'Загрузка...' : &lt;AppContent />}&lt;/div>
+  </code>
+</pre>
+</body>
+</html>
