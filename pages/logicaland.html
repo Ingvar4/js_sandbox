@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Logical AND</h1>
+  <a href="../index.html">назад</a>
+  
+  <p>&& — это логический оператор И (AND). Он:</p>
+  <ul>
+    <li>коротко-замыкающий (short-circuiting): если левый операнд приводится к false (т.н. falsy), правый операнд не вычисляется и возвращается значение левого;</li>
+    <li>не обязательно возвращает булево — в JavaScript && возвращает один из своих операндов (первый falsy или последний truthy), а не обязательно true/false.</li>
+  </ul>
+  
+  <h3>Примеры</h3>
+<pre>
+  <code class="lang-js">
+    // 1. Простая логика
+    true && false        // => false  (в булевом контексте)
+    true && "hello"      // => "hello"  (true -> возвращаем правый)
+    0 && doSomething()   // => 0, doSomething() не вызовется (0 falsy)
+
+    // 2. Возврат первого falsy или последнего truthy
+    "foo" && 42 && {}    // => {}   (все truthy, возвращаем последний)
+    "foo" && "" && 42    // => ""   ("" — первое falsy, возвращается)
+
+    // 3. Guard / защита перед доступом к свойству (раньше часто использовали)
+    const user = null;
+    const name = user && user.name; // => null (без ошибки), но лучше user?.name
+
+    // 4. Условный вызов функции (практичный паттерн)
+    const maybeFn = null;
+    maybeFn && maybeFn(); // ничего не произойдёт, т.к. maybeFn falsy
+
+    // 5. Условный рендер в React JSX
+    // {condition && &lt;Component />} — если condition == 0, в DOM попадёт 0, будьте осторожны
+  </code>
+</pre>
+</body>
+</html>
