@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>async</h1>
+  <a href="../index.html">назад</a>
+  <p>async/await — синтаксический сахар над Promise в JavaScript, появившийся в ES2017. Он делает асинхронный код читаемым и похожим на синхронный: async помечает функцию как возвращающую Promise, await — приостанавливает выполнение внутри async-функции до разрешения промиса и извлекает его результат.</p>
+  <h2>Базовый пример</h2>
+<pre>
+  <code class="lang-js">
+    async function fetchJson(url) {
+      const res = await fetch(url);         // ждём ответа
+      if (!res.ok) throw new Error(res.statusText);
+      const data = await res.json();        // ждём парсинга тела
+      return data;                          // возвращаем результат (обёрнутый в Promise)
+    }
+
+    fetchJson('/api/user/1')
+      .then(user => console.log(user))
+      .catch(err => console.error('Ошибка:', err));
+  </code>
+</pre>
+  <h2>Обработка ошибок</h2>
+<pre>
+  <code class="lang-js">
+    async function getData() {
+      try {
+        const res = await fetch('/api/data');
+        if (!res.ok) throw new Error('Bad response');
+        return await res.json();
+      } catch (err) {
+        // можно логировать, пробрасывать дальше или возвращать дефолт
+        console.error('Ошибка получения данных:', err);
+        throw err; // либо return null;
+      }
+    }
+  </code>
+</pre>
+</body>
+</html>
