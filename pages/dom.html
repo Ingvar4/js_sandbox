@@ -12,16 +12,47 @@
 <body>
   <h1>DOM</h1>
   <a href="../index.html">назад</a>
-  <h2>getElementById()</h2>
-<pre>
-  <code class="lang-html">
-     &lt;p id="first">Hi, There!&lt;/p>
-  </code>
-</pre>
 <pre>
   <code class="lang-js">
-    const elem = document.getElementById("first");
+    getElementById() //выбор элементов по идентификатору
+    getElementsByName() //выбор элементов по имени
+    getElementsByTagName() //выбор элементов по имени тега
+    getElementsByClassName() //выбор элементов по одному или нескольким именам классов
+    querySelector() //выбирает первый элемент соотв. одному или нескольким селекторам
+    querySelectorAll() //выбирает все элементы соотв. селектору
   </code>
 </pre>
+  <h2>CreateElement()</h2>
+  <p>Для создания HTML-элемента используется метод <code>document.createElement()</code>:</p>
+<pre>
+  <code class="lang-js">
+    let div = document.createElement('div');
+  </code>
+</pre>
+  <h2>appendChild()</h2>
+  <p>Позволяет добавить узел в конец списка дочерних узлов указанного родительского узла.</p>
+<pre>
+  <code class="lang-js">
+    document.body.appendChild(div);
+  </code>
+</pre>
+  <h2>textContent</h2>
+  <p>Если вы хотите вставить в документ простой текст, вы можете использовать свойство <code>textContent</code> вместо <code>innerHTML</code>. <code>textContent</code> будет обработан не как HTML, а как необработанный текст.</p>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  
+</script>
 </body>
 </html>
