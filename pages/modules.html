@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>ES Modules</h1>
+  <a href="../index.html">назад</a>
+  <h2>export — что можно экспортировать?</h2>
+  <ul>
+    <li>переменные</li>
+    <li>функции</li>
+    <li>классы</li>
+    <li>объекты</li>
+    <li>что угодно</li>
+  </ul>
+  <h3>Named export (именованный экспорт)</h3>
+<pre>
+  <code class="lang-js">
+    // math.js
+    export const PI = 3.14;
+
+    export function sum(a, b) {
+      return a + b;
+    }
+  </code>
+</pre>
+  <p>Импорт:</p>
+<pre>
+  <code class="lang-js">
+    import { PI, sum } from './math.js';
+  </code>
+</pre>
+  <h3>Default export (экспорт по умолчанию)</h3>
+<pre>
+  <code class="lang-js">
+    // logger.js
+    export default function log(message) {
+      console.log(message);
+    }
+  </code>
+</pre>
+  <p>Импорт:</p>
+<pre>
+  <code class="lang-js">
+    import log from './logger.js';
+  </code>
+</pre>
+  <p>Особенности:</p>
+  <ul>
+    <li>default только один в файле</li>
+    <li>имя при импорте можно любое</li>
+  </ul>
+<pre>
+  <code class="lang-js">
+    import myLogger from './logger.js';
+  </code>
+</pre>
+</body>
+</html>
