@@ -15,12 +15,20 @@ body pre::-webkit-scrollbar-thumb {
 body {
   width: 50%;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: #252525;
   color: #e3e3e3;
+  font-size: 1.3em;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+p {
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 a {
@@ -28,9 +36,6 @@ a {
   color: #e3e3e3;
 }
 
-p {
-  font-size: 1.2em;
-}
 
 pre {
   width: 100%;
@@ -44,7 +49,6 @@ code {
   background-color: #fff4da13;
   padding: 1px 4px;
   border-radius: 4px;
-  font-size: 1.2em;
   font-family: 'Courier New', Courier, monospace;
 }
 
