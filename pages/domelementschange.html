@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Изменение, удаление, добавление элементов</h1>
+  <p>Пример</p>
+<pre>
+  <code class="lang-html">
+    &lt;!-- HTML -->
+
+    &lt;p>Распределение ролей к утреннику&lt;/p>
+    &lt;ol id="roles-adults">
+      &lt;li class='item' id='santa'>Дед Мороз - Иван Иванович&lt;/li>
+      &lt;li class='item'>Снегурочка - Анна Сергеевна&lt;/li>
+    &lt;/ol>
+    &lt;p>Снежинки:&lt;/p>
+    &lt;ul id="roles-children">
+      &lt;li class='item'>Маша&lt;/li>
+      &lt;li class='item'>Света&lt;/li>
+      &lt;li class='item'>Ира&lt;/li>
+      &lt;li class='item'>&lt;/li>
+    &lt;/ul>
+  </code>
+</pre>
+
+<pre>
+  <code class="lang-js">
+    //JS
+
+    //замена текста в элементе
+    const santaRoleEl = document.getElementById('santa');
+    santaRoleEl.innerText = 'Дед Мороз - Сергей Петрович';
+
+    //удаление конкретного элемента по индексу
+    const thirdChiledEl = document.querySelectorAll('.item')[4];
+    thirdChiledEl.remove();
+
+    //добавление элемента в пустой 'li'
+    const forthChildEl = document.querySelectorAll('.item')[5];
+    forthChildEl.innetText = 'Настя';
+
+    //один из способов добавления нового элемента в список 
+    const childrenRolesEl = document.getElementById('roles-children');
+    childrenRolesEl.innerHTML += "&lt;li class='item'>Таня&lt;/li>";
+  </code>
+</pre>
+
+
+
+
+</body>
+</html>

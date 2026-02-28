@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Dom дерево</h1>
+  <p>Пример</p>
+<pre>
+  <code class="lang-html">
+    &lt;!-- HTML -->
+
+    &lt;p>Распределение ролей к утреннику&lt;/p>
+    &lt;ol id="roles-adults">
+      &lt;li class='item'>Дед Мороз - Иван Иванович&lt;/li>
+      &lt;li class='item'>Снегурочка - Анна Сергеевна&lt;/li>
+    &lt;/ol>
+    &lt;p>Снежинки:&lt;/p>
+    &lt;ul id="roles-children">
+      &lt;li class='item'>Маша&lt;/li>
+      &lt;li class='item'>Света&lt;/li>
+      &lt;li class='item'>Ира&lt;/li>
+    &lt;/ul>
+  </code>
+</pre>
+
+<pre>
+  <code class="lang-js">
+    //JS
+
+    //Получение элементов по их ID в dom
+    const adultRolesEl = document.getElementById('roles-adults');
+    const chilrenRolesEl = document.getElementById('roles-children');
+
+    //Вывод содержимого элементов в консоль с помощью метода innerText
+    console.log(adultRolesEl.innerText);
+    console.log(adultRolesEl.innerText);
+
+    //Поиск коллекции элементов по классу
+    const childrenOne = document.getElementsByClassName('item');
+
+    //Поиск конкретного элемента по индексу ([0])
+    const childrenOne = document.getElementsByClassName('item')[0];
+
+    //Более распространённый способ через querySelector  
+    //Выводит 1й найденый эл., квадратные скобки не работают
+    const elements = document.querySelector('.item');
+
+    //querySelectorAll работает с индексами
+    const elements = document.querySelectorAll('.item')[0];
+
+    //querySelectorAll позволяет перебирать всю коллекцию
+    const allActors = document.querySelectorAll('.item');
+    allActors.forEach((actor) => {
+      el.style.color = 'green'; //можно при переборе заменить стили
+      console.log(actor.innerText);
+    });
+
+    //так же возможно при переборе добавлять дополнительный текст к конкретным группам
+    allActors.forEach((el, index) => {
+      el.style.color = 'red';
+      if (index >= 2) {
+        el.innerText += ' - старшная группа';
+      }
+    });
+  </code>
+</pre>
+
+
+
+
+</body>
+</html>

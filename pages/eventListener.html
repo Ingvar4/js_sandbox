@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Обработчики событий на элементах</h1>
+  <p>Пример</p>
+<pre>
+  <code class="lang-html">
+    &lt;!-- HTML -->
+
+    &lt;p>Распределение ролей к утреннику&lt;/p>
+    &lt;ol id="roles-adults">
+      &lt;li class='item'>Дед Мороз - Иван Иванович&lt;/li>
+      &lt;li class='item'>Снегурочка - Анна Сергеевна&lt;/li>
+    &lt;/ol>
+    &lt;p>Снежинки:&lt;/p>
+    &lt;ul id="roles-children">
+      &lt;li class='item'>Маша&lt;/li>
+      &lt;li class='item'>Света&lt;/li>
+      &lt;li class='item'>Ира&lt;/li>
+    &lt;/ul>
+  </code>
+</pre>
+
+<pre>
+  <code class="lang-js">
+    //JS
+
+    const adultRolesEl = document.getElementById('roles-adults');
+    const chilrenRolesEl = document.getElementById('roles-children');
+    
+    //вешаем обработчик событий по клику на adultRolesEl
+    adultRolesEl.addEventListener('click', () => {
+      alert('Взрослые');
+    });
+  </code>
+</pre>
+
+
+
+
+</body>
+</html>
