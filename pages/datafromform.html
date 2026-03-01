@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Изменение, удаление, добавление элементов</h1>
+  <p>Пример</p>
+<pre>
+  <code class="lang-html">
+    &lt;!-- HTML -->
+
+    &lt;p>Распределение ролей к утреннику&lt;/p>
+    &lt;ol id="roles-adults">
+      &lt;li class='item'>Дед Мороз - Иван Иванович&lt;/li>
+      &lt;li class='item'>Снегурочка - Анна Сергеевна&lt;/li>
+    &lt;/ol>
+    &lt;p>Снежинки:&lt;/p>
+    &lt;ul id="roles-children">
+      &lt;li class='item'>Маша&lt;/li>
+      &lt;li class='item'>Света&lt;/li>
+      &lt;li class='item'>Ира&lt;/li>
+    &lt;/ul>
+    &lt;input type="text" id="onemoreChild" placeholder="Введите имя ребёнка" />
+    &lt;button id="addChildButton">Добавить снежинку&lt;/button>
+  </code>
+</pre>
+
+<pre>
+  <code class="lang-js">
+    //JS
+
+    //добавление нового имени в список
+    const childRolesEl = document.getElementById('roles-children');
+    const input = document.getElementById('oneMoreChild');
+    const button = document.getElementById('addChildButton');
+    //обращаемся к длинне дочерних элементов ненумерованного списка
+    let numberChildren = childRolesEl.children.length;
+
+    //добавление в список при нажатии Enter
+    input.addEventListener('keypress', (event) => {
+      if(event.key === 'Enter') {
+        addChild();    
+      }
+    });
+
+    button.addEventListener('click', () => {
+      addChild();
+    });
+
+    function addChild() {
+      const oneMoreChildInputText = input.value.trim();
+      if(oneMoreChildInputText !== '') {
+        childRolesEl.innerHTML += `&lt;li class='item'>${oneMoreChildInputText}&lt;button class='delete-button'>Удалить&lt;/button>&lt;/li>`;
+
+        //cоздаём обработчик событий для кнопки удаления
+        const deleteButtons = document.querySelectorAll('.delete-button');
+        deleteButtons.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            btn.parentElement.remove(); //parentElement-cвойство для обращения к родительскому элементу
+            numberChildren--;  //постфиксный декремент для того чтобы счётчик отнимал значение
+            button.disabled = false; //для разблокировки кнопки при значениях меньше 5
+          });
+        });
+      };
+
+      input.value = '';
+      numberChildren++;
+
+      if (numberChildren === 5) {
+        button.disabled = true;
+      }
+    }
+  </code>
+</pre>
+
+
+
+
+</body>
+</html>
