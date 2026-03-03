@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Конкатенация и шаблонные строки</h1>
+  <a href="../index.html">назад</a>
+  <div id="weather-link"></div>
+<pre>
+  <code class="lang-html">
+    &lt;div id="weather-link">&lt;/div>
+  </code>
+</pre>
+
+<pre>
+  <code class="lang-js">
+    const host = 'gismeteo.ru/weather-';
+    const query = 'stockholm-417';
+    const url = `https://${host}${query} /`;
+    const linkText = `&lt;a href=${url}>Погода в этом городе&lt;/a>`;
+    const weatherLinkEl = document.getElementById('weather-link');
+
+    weatherLinkEl.innerHTML = linkText;
+  </code>
+</pre>
+  
+</body>
+</html>

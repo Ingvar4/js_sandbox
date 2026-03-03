@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+  <style>
+    
+    .quiz {
+      /* background-color: #fff; */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .question h3 {
+      margin-top: 0;
+    }
+    .answer {
+      display: block;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .answer:hover {
+      background-color: #947f7f;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Test</h1>
+  <a href="../index.html">назад</a>
+  
+<pre>
+  <code class="lang-html">
+    &lt;div class="quiz">
+      &lt;div class="question">
+        &lt;h3>
+          Вопрос: Какой результат будет у выражения &lt;code>1 + "2"&lt;/code> в
+          JavaScript?
+        &lt;/h3>
+        &lt;div class="answer">3&lt;/div>
+        &lt;div class="answer">"12"&lt;/div>
+        &lt;div class="answer">12&lt;/div>
+        &lt;div class="answer">"3"&lt;/div>
+      &lt;/div>
+      &lt;div class="result">&lt;/div>
+    &lt;/div>
+  </code>
+</pre>
+
+<pre>
+  <code class="lang-js">
+    const answers = document.querySelectorAll(".answer");
+    const resultElement = document.querySelector(".result");
+    let selectedAnswer = null;
+      
+    answers.forEach((answer) => {
+      answer.addEventListener("click", () => {
+        if (selectedAnswer) {
+          selectedAnswer.style.backgroundColor = "#f0f0f0";
+          selectedAnswer.style.color = "#000";
+        }
+        answer.style.backgroundColor = "#007bff";
+        answer.style.color = "#fff";
+
+        if (answer.textContent === '12') {
+          resultElement.textContent = "Правильно!";
+        } else {
+          resultElement.textContent = "Неправильно!";
+        }
+
+        selectedAnswer = answer;
+      });
+    });
+  </code>
+</pre>
+  
+</body>
+</html>
