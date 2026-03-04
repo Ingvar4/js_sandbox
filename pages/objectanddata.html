@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Объекты и данные в них</h1>
+  <a href="../index.html">назад</a>
+
+<pre>
+  <code class="lang-js">
+    const student = {
+      name: 'Александр',
+      surname: 'Иванов',
+      course: 3,
+      age: 21,
+      isMarried: false,
+      skills: ['HTML', 'CSS', 'JS'],
+      address: {
+        city: 'Краснодар',
+        street: 'Красная',
+        house: 22,
+        'building/letter': null,
+        apartment: 12
+      },
+    };
+
+    console.log(student.name); //Александр
+    console.log(student['name']); //Александр.(name в кавычках, потому что ключ-строковый тип данных)
+    console.log(student.address.city); //Краснодар
+    console.log(student.address['building/letter']); //null
+    console.log(student.skills); //['HTML', 'CSS', 'JS']
+    console.log(student.skills[0]); //HTML
+
+    //изменение свойств объекта
+    student.isMarried = true;
+    console.log(student.isMarried); //true
+
+    //удаление свойств 
+    delete student.isMarried;
+    console.log(student);
+
+    //добавление свойств
+    student.foreignLanguage = 'English';
+
+    //другой пример добавления свойств
+    const additionalData = 'foreignLanguage';
+    student[additionalData] = 'English';
+
+    //добавление во вложенные свойства
+    student.address.country = 'Russia';
+
+    //добавление в массив
+    student.skills[3] = 'TypeScript';
+  </code>
+</pre>
+
+  <h2>Вывод ихформации из объекта (рендер)</h2>
+<pre>
+  <code class="lang-html">
+    &lt;div id="student-info">&lt;/div>
+  </code>
+</pre>
+
+<pre>
+  <code class="lang-js">
+    function renderStudentInfo() {
+      const studentInfoDiv = document.getElementById('student-info');
+      studentInfoDiv.innerHTML = `
+        &lt;h2>${student.name} ${student.surname}&lt;/h2>
+        &lt;p>Курс: ${student.course}&lt;/p>
+        &lt;p>Возраст: ${student.age}&lt;/p>
+        &lt;p>Женат: ${student.isMarried ? 'Да' : 'нет'}&lt;/p>
+        &lt;p>Навыки: ${student.skills.join(", ")}&lt;/p>
+        &lt;h3>Адрес&lt;/h3>
+        &lt;p>Город: ${student.address.city}&lt;/p>
+        &lt;p>Улица: ${student.address.street}&lt;/p>
+        &lt;p>Дом: ${student.address.house}&lt;/p>
+        &lt;p>Корпус/Литера: ${
+          student.address['building/letter'] === null 
+          ? 'Не указано' 
+          : student.address['building/letter']
+        }&lt;/p>
+        &lt;p>Квартира: ${student.address.apartment}&lt;/p>
+      `;
+    }
+
+    renderStudentInfo(student);
+  </code>
+</pre>
+  
+</body>
+</html>
