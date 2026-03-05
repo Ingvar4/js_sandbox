@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Оператор for...in</h1>
+  <a href="../index.html">назад</a>
+  <h3>Перебор свойств объекта</h3>
+<pre>
+  <code class="lang-js">
+    const capitalOfCountries = {
+      Рим: 'Италии',
+      Париж: 'Франции',
+      Анкара: 'Турции',
+      Берлин: 'Германии',
+    }
+
+    for (let capital in capitalOfCountries) {
+      console.log(`${capital}, является столицей ${capitalOfCountries[capital]}`);
+    };
+  </code>
+</pre>
+  <h3>2й пример</h3>
+<pre>
+  <code class="lang-html">
+    &lt;div id="student-info">&lt;/div>
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const student = {
+      name: 'Александр',
+      surname: 'Иванов',
+      course: 3,
+      age: 21,
+      isMarried: '',
+      skills: ['HTML', 'CSS', 'JS'],
+      contacts: {
+        phone: '+79771234567',
+      },
+    };
+
+    const studentInfoDiv = document.getElementById('student-info');
+
+    for (let key in student) {
+      if (student[key]) {
+        studentInfoDiv.innerText += `${key} : ${student[key]}\n`;
+      }
+    }
+  </code>
+</pre>
+</body>
+</html>

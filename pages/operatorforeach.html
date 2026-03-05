@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Перебор элементов массива. Метод forEach</h1>
+  <a href="../index.html">назад</a>
+  
+<pre>
+  <code class="lang-js">
+    const arrNums = [3, 5, 7, 77, 55];
+
+    arrNums.forEach((el) => {
+      console.log(el);
+    });
+  </code>
+</pre>
+  <h3>Пример работы с индексом массива</h3>
+<pre>
+  <code class="lang-js">
+    const arrNums = [3, 5, 7, 77, 55];
+
+    arrNums.forEach((el, index) => {
+      console.log(`${el}: ${index}`);
+    });
+  </code>
+</pre>
+  <h3>Пример с дополнительным выводом самого массива</h3>
+<pre>
+  <code class="lang-js">
+    const arrNums = [3, 5, 7, 77, 55];
+
+    arrNums.forEach((el, index, arr) => {
+      console.log(`${el}: ${index}, массив ${arr}`);
+    });
+  </code>
+</pre>
+</body>
+</html>

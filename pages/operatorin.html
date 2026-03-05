@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Оператор in и поиск ключей в объекте</h1>
+  <a href="../index.html">назад</a>
+
+<pre>
+  <code class="lang-js">
+    const student = {
+      name: 'Александр',
+      surname: 'Иванов',
+      course: 3,
+      age: 21,
+      isMarried: false,
+      skills: ['HTML', 'CSS', 'JS'],
+      address: {
+        city: 'Краснодар',
+        street: 'Красная',
+        house: 22,
+        'building/letter': null,
+        apartment: 12
+      },
+    };
+
+    console.log('age' in student); //true
+    console.log('city' in student.address); //true
+
+    //если нужно осуществить поиск в массиве
+    console.log(student.skills.includes('HTML')); //true
+  </code>
+</pre>
+  <h3>Опциональная цепочка <code>.?</code></h3>
+<pre>
+  <code class="lang-html">
+    &lt;!-- пример с рендером, когда ключ неизвестен -->
+    &lt;!-- опциональная цепочка .? предотвращает появление ошибки  -->
+    &lt;!-- при отсутствии свойства -->
+    &lt;p>Телефон: ${student.contacts?.phone || 'не указан'}&lt;/p>
+  </code>
+</pre>
+  
+</body>
+</html>
