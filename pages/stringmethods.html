@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Встроенные методы строки</h1>
+  <a href="../index.html">назад</a>
+  <p>Встроенные методы строки не мутируют исходную строку</p>
+  <h2>toLowerCase() - приведение к нижнему регистру</h2>
+<pre>
+  <code class="lang-js">
+    let str = 'My name is Alexei';
+    console.log(str.toLowerCase()); //my name is alexei
+    console.log(str); //My name is Alexei
+  </code>
+</pre>
+  <h2>toUpperCase() - приведение к верхнему регистру</h2>
+<pre>
+  <code class="lang-js">
+    let str = 'My name is Alexei';
+    console.log(str.toUpperCase()); //MY NAME IS ALEXEI
+    console.log(str); //My name is Alexei
+  </code>
+</pre>
+  <h2>indexOf() - поиск подстроки, возвращает индекс</h2>
+<pre>
+  <code class="lang-js">
+    let str = 'My name is Alexei';
+    console.log(str.indexOf('i')); //8
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    let userName = 'Alexei';
+    let str = `My name is ${userName}`;
+    console.log(str.indexOf('el')); //15
+  </code>
+</pre>
+  <h2>includes() - поиск подстроки, возвращает true/false</h2>
+<pre>
+  <code class="lang-js">
+    let userName = 'Alexei';
+    let str = `My name is ${userName}`;
+    console.log(
+      `The string "${userName}" ${
+        str.includes(userName) ? "is" : "is not"
+      } in the sentense`
+    );
+    //The string "Alexei is in the sentense
+  </code>
+</pre>
+  <h3>Пример поиска по ключевому слову</h3>
+<pre>
+  <code class="lang-js">
+    const products = [
+      'Яйцо столовое',
+      'Молоко Молочник',
+      'Коровка Молоко',
+      'Виноград Изабелла',
+    ];
+
+    let search = 'молоко';
+
+    products.forEach((product) => {
+      if (product.toLowerCase().includes(search.toLowerCase())) {
+        console.log(product);
+      }
+    });
+
+    //Молоко Молочник
+    //Коровка Молоко
+  </code>
+</pre>
+  <h2>slice()</h2>
+  <p>извлекает часть строки и возвращает новую строку без мутации оригинальной</p>
+<pre>
+  <code class="lang-js">
+    let userName = 'Alexei';
+    let str = `My name is ${userName}`;
+    console.log(str.slice(1)); //y name is Alexei
+    //Два параметра
+    //0 - первый включенный порядковый номер символа
+    //5- первый уже не включенный порядковый номер символа
+    console.log(str.slice(0, 5)); //My na
+    console.log(str.slice(2, 9)); // name i (первый включенный - пробел под индексом 2)
+  </code>
+</pre>
+  <p>Пример с извлечением даты</p>
+<pre>
+  <code class="lang-js">
+    let dateStr = '2023-10-05';
+    let year = dateStr.slice(0, 4); 
+    console.log(year); //2023
+    let month = dateStr.slice(5, 7);
+    console.log(month); //10
+    let day = dateStr.slice(8, 10);
+    console.log(day); //05
+    console.log(year, month, day); //2023 10 05
+  </code>
+</pre>
+  <p>Пример принятия отрицательного значения slice</p>
+<pre>
+  <code class="lang-js">
+    let str = 'Hello World!';
+    let newStr = str.slice(0, -1); //Удаляем последний символ
+    console.log(newStr); //Hello World
+  </code>
+</pre>
+  <h2>split()</h2>
+  <h2>join()</h2>
+  <h2>trim()</h2>
+  <h2>reverse()</h2>
+</body>
+</html>
