@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Встроенные методы массивов</h1>
+  <a href="../index.html">назад</a>
+  <h2>Array.isArray()</h2>
+  <p>Проверка, является ли переменная массивом</p>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3];
+    const notArray = 'not an array';
+
+    console.log(Array.isArray(array)); //true
+    console.log(Array.isArray(notArray)); //false
+  </code>
+</pre>
+  <h2>concat()</h2>
+  <p>Объединяет 2 и > массива или строки. Возвращает новый массив. Не мутирует исходный массив.</p>
+<pre>
+  <code class="lang-js">
+    const array1 = [1, 2, 3];
+    const array2 = [3, 3, 4];
+    const newArray = array1.concat(array2);
+    console.log(newArray); //[1, 2, 3, 3, 3, 4]
+  </code>
+</pre>
+  <p>Пример с 3мя массивами</p>
+<pre>
+  <code class="lang-js">
+    const array1 = [1, 2, 3];
+    const array2 = [3, 3, 4];
+    const array3 = [7, 8, 9];
+    const newArray = array1.concat(array2, array3);
+    console.log(newArray); //[1, 2, 3, 3, 3, 4, 7, 8, 9]
+  </code>
+</pre>
+  <h2>indexOf()</h2>
+  <p>Поиск индекса первого вхождения указанного элемента в массиве.</p>
+  <p>Возвращает индекс элемента или <code>-1</code></p>
+  <p>Принимает 2 аргумента:</p>
+  <ul>
+    <li>искомый элемент</li>
+    <li>начальный индекс(опционально). По умолчанию 0</li>
+  </ul>
+<pre>
+  <code class="lang-js">
+    const array1 = [1, 2, 3, 4, 3, 5];
+    const index = array1.indexOf(3);
+    console.log(index); //2
+
+    //первая 3ка, встречающаяся в массиве имеет индекс 2
+  </code>
+</pre>
+  <p>Пример с 2мя аргументами</p>
+<pre>
+  <code class="lang-js">
+    const array1 = [1, 2, 3, 4, 3, 5];
+    const index = array1.indexOf(3, 3);
+    console.log(index); //4
+
+    //поиск начинается с 3го элемента массива
+  </code>
+</pre>
+  <h2>lastIndexOf()</h2>
+  <p>Поиск индекса последнего вхождения указанного элемента в массиве</p>
+  <p>Возвращает индекс элемента или <code>-1</code></p>
+  <p>Принимает 2 аргумента:</p>
+  <ul>
+    <li>искомый элемент</li>
+    <li>начальный индекс в обратном направлении(опционально). По умолчанию раверн <code>length -1</code></li>
+  </ul>
+<pre>
+  <code class="lang-js">
+    const array1 = [1, 2, 3, 4, 3, 5];
+    const index = array1.lastIndexOf(3);
+    console.log(index); //4
+
+    //Метод ищет первую 3ку с конца, она под индексом 4
+  </code>
+</pre>
+  <p>Пример с 2мя аргументами</p>
+<pre>
+  <code class="lang-js">
+    const array1 = [1, 2, 3, 4, 3, 5];
+    const index = array1.lastIndexOf(3, 3);
+    console.log(index); //2
+
+    //Находит последнюю 3ку с конца под индексом 2
+  </code>
+</pre>
+  <h2>pop()</h2>
+  <p>Удаляет последний элемент из массива и возвращает этот удалённый элемент.</p>
+  <p>Мутирует исходный массив</p>
+<pre>
+  <code class="lang-js">
+    const array1 = [1, 2, 3, 4, 3, 5];
+    const lastElement = array1.pop();
+    console.log(lastElement); //5
+    console.log(array1); //[1, 2, 3, 4, 3]
+  </code>
+</pre>
+  <p>удаление всех элементов из массива</p>
+<pre>
+  <code class="lang-js">
+    const array = [10, 20, 30, 40, 30, 50];
+    while (array.length > 0) {
+      console.log(array.pop());
+    };
+
+    console.log(array);
+    //50
+    //30
+    //40
+    //30
+    //20
+    //10
+    //[]
+  </code>
+</pre>
+  <h2>push()</h2>
+  <p>Добавляет элементы в конец массива и возвращает новую длинну массива.</p>
+  <p>Мутирует исходный массив</p>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3];
+    const newLength = array.push(4);
+    console.log(newLength); //4
+    console.log(array); //[1, 2, 3, 4]
+  </code>
+</pre>
+  <p>пример с добавлением элементов в массив через цикл</p>
+<pre>
+  <code class="lang-js">
+    const array = [];
+    for (let i = 1; i &lt;= 5; i++) {
+      array.push(i);
+    }
+    console.log(array); //[1, 2, 3, 4, 5]
+  </code>
+</pre>
+  <h2>shift()</h2>
+  <p>Удаляет первый элемент из массива и возвращает этот удалённый элемент.</p>
+  <p>Мутирует исходный массив</p>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3, 4];
+    const firstElement = array.shift();
+    console.log(firstElement); // 1
+    console.log(array); //[2, 3, 4]
+  </code>
+</pre>
+  <h2>unshift()</h2>
+  <p>Добавление 1 или нескольких элементов в начало массива</p>
+  <p>Возвращает новую длинну массива. Мутирует исходный массив</p>
+<pre>
+  <code class="lang-js">
+    const array = [2, 3, 4];
+    const newLength = array.unshift(1);
+    console.log(newLength); //4
+    console.log(array); //[1, 2, 3, 4]
+  </code>
+</pre>
+  <h2>includes()</h2>
+  <p>Определяет, содержит ли массив определённый элемент</p>
+  <p>Возвращает true или false</p>
+  <p>Не изменяет исходный массив</p>
+  <p>Пример с поиском начиная с 2го индекса</p>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3, 4, 5, 6];
+    const hasElement = array.includes(3, 2);
+    console.log(hasElement); //true
+
+    //ищет есть ли 3 начиная с 2 индекса
+  </code>
+</pre>
+  <h2>slice()</h2>
+  <p>Создаёт новый массив, содержащий копию части исходно массива. Возвращает новый массив, содержащий выбранный элементы. Не изменяет исходный массив. Принимает 2 аргумента:</p>
+  <ul>
+    <li>начальный индекс (включительно), с которого начинается выбор элементов</li>
+    <li>конечный индекс (не включительно), до которого выбираются элементы</li>
+  </ul>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3, 4, 5, 6];
+    const newArray = array.slice(1, 4);
+    console.log(newArray); //[2, 3, 4]
+    console.log(array); //[1, 2, 3, 4, 5, 6]
+  </code>
+</pre>
+  <p>отрицательные индекса отсчитываются от конца массива</p>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3, 4, 5, 6];
+    const newArray = array.slice(-3, -1);
+    console.log(newArray); //[4, 5]
+    console.log(array); //[1, 2, 3, 4, 5, 6]
+  </code>
+</pre>
+  <h2>splice()</h2>
+  <p>Используется для удаления, заменты или добавления элементов. Возвращает массив, удалённых элементов. Мутирует исходный массив. Принимает 3 аргумента:</p>
+  <ul>
+    <li>начальный индекс (включительно), с которого начинается изменение массива.</li>
+    <li>количество удаляемых элементов, начиная с начального индекса. По умолчанию равен 0</li>
+    <li>элементы для добавления (опционально), начиная с начального индекса</li>
+  </ul>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3, 4, 5, 6];
+    const removedElements = array.splice(2, 2);
+    console.log(removedElements); //[3, 4]
+    console.log(array); //[1, 2, 5, 6]
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3, 4, 5, 6];
+    const removedElements = array.splice(0, 2);
+    console.log(removedElements); //[1, 2]
+    console.log(array); //[3, 4, 5, 6]
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3, 4, 5];
+    const removedElements = array.splice(2, 0, 6, 7); //количество удаляемых элементов - 0
+    console.log(removedElements); //[]
+    console.log(array); //[1, 2, 6, 7, 3, 4, 5]
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3, 4, 5];
+    const removedElements = array.splice(2, 2, 6, 7);
+    console.log(removedElements); //[3, 4]
+    console.log(array); //[1, 2, 6, 7, 5]
+
+    // 2 - начало со 2го индекса
+    // 2 - количество удалённых элементов
+    // 6 - добавление 6
+    // 7 - добавление 7
+  </code>
+</pre>
+  <p>удаление после определённого индекса</p>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3, 4, 5];
+    const removedElements = array.splice(2);
+    console.log(removedElements); //[3, 4, 5]
+    console.log(array); //[1, 2]
+  </code>
+</pre>
+  <h2>join()</h2>
+  <p>Объединяет все элементы массива в строку с указанным разделителем (по умолчанию запятая)</p>
+  <p>Не изменяет исходный масив</p>
+<pre>
+  <code class="lang-js">
+    const array = ['apple', 'banana', 'cherry'];
+    const result = array.join();
+    console.log(result); //apple,banana,cherry
+    console.log(array); //['apple', 'banana', 'cherry']
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const array = ['apple', 'banana', 'cherry'];
+    const result = array.join(' - ');
+    console.log(result); //apple - banana - cherry
+    console.log(array); //['apple', 'banana', 'cherry']
+  </code>
+</pre>
+  <h2>reverse()</h2>
+  <p>Изменяет порядок элементов в массиве на обратный</p>
+  <p>Мутирует исходный массив</p>
+<pre>
+  <code class="lang-js">
+    const array = ['apple', 'banana', 'cherry'];
+    array.reverse();
+    console.log(array); //['cherry', 'banana', 'apple']
+  </code>
+</pre>
+  <p>Если нужно сохранить исходный массив не мутированным</p>
+  <p>вставка <code>slice()</code> позволяет избежать мутации</p>
+<pre>
+  <code class="lang-js">
+    const originalArray = [1, 2, 3, 4, 5];
+    const reversedArray = originalArray.slice().reverse();
+    console.log(reversedArray); //[5, 4, 3, 2, 1]
+    console.log(originalArray); //[1, 2, 3, 4, 5]
+  </code>
+</pre>
+</body>
+</html>

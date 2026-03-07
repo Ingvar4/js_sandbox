@@ -114,8 +114,37 @@
   </code>
 </pre>
   <h2>split()</h2>
+  <p>разбивает на массив, путём разделения строки указанной подстрокой</p>
+<pre>
+  <code class="lang-js">
+    let userName = 'Alexei';
+    let str = `My name is ${userName}`;
+    console.log(str.split(' '));
+
+    // ['My', 'name', 'is', 'Alexei']
+  </code>
+</pre>
   <h2>join()</h2>
+  <p>Объединяет все элементы массива или массивоподобного объекта в строку</p>
+<pre>
+  <code class="lang-js">
+    let userName = 'Alexei';
+    let str = `My name is ${userName}`;
+    console.log(str.split(' ').join(' '));
+    //My name is Alexei
+  </code>
+</pre>
   <h2>trim()</h2>
+  <p>убирает все пробелы в начале и конце строки</p>
+<pre>
+  <code class="lang-js">
+    let userName = 'Alexei';
+    let str = `   My name is ${userName}  `;
+    console.log(str.trim());
+    //My name is Alexei
+  </code>
+</pre>
   <h2>reverse()</h2>
+  <p>реверс массива</p>
 </body>
 </html>
