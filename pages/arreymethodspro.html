@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Продвинутый перебор объектов: Object.keys, Object.values, Object. entries</h1>
+  <a href="../index.html">назад</a>
+  <h2>Object.keys()</h2>
+  <p>Используется для получения массива строковых ключей (имен свойств) перечисляемых свойств объекта</p>
+<pre>
+  <code class="lang-js">
+    const obj = { a: 1, b: 2, c: 3 };
+    const keys = Object.keys(obj);
+    console.log(keys); //['a', 'b', 'c']
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const obj = { a: 1, b: 2, c: 3 };
+    const keys = Object.keys(obj);
+    keys.forEach((key) => {
+      console.log(`${key}`);
+    });
+
+    //a
+    //b
+    //c
+  </code>
+</pre>
+  <p>Так же можно выводить и значения объекта</p>
+<pre>
+  <code class="lang-js">
+    const obj = { a: 1, b: 2, c: 3 };
+    const keys = Object.keys(obj);
+    keys.forEach((key) => {
+      console.log(`${key}: ${obj[key]}`);
+    });
+
+    //a: 1
+    //b: 2
+    //c: 3
+  </code>
+</pre>
+  <p>Практический пример</p>
+<pre>
+  <code class="lang-js">
+    const users = {
+      alice: {
+        name: 'Alice',
+        age: 28,
+        email: 'aclice@example.com'
+      },
+      bob: {
+        name: 'Bob',
+        age: 34,
+        email: 'bob@example.com'
+      },
+      charlie: {
+        name: 'Charlie',
+        age: 22,
+        email: 'charlie@example.com'
+      }
+    };
+
+    const keys = Object.keys(users);
+    keys.forEach((key) => {
+      console.log(`Пользователь: ${users[key].name}`);
+      console.log(`Возраст: ${users[key].age}`);
+      console.log(`Email: ${users[key].email}`);
+      console.log('---');
+    });
+
+    // Пользователь: Alice
+    // Возраст: 28
+    // Email: aclice@example.com
+    // ---
+    // Пользователь: Bob
+    // Возраст: 34
+    // Email: bob@example.com
+    // ---
+    // Пользователь: Charlie
+    // Возраст: 22
+    // Email: charlie@example.com
+    // ---
+  </code>
+</pre>
+  <p>можно задать переменную <code>user</code> чтобы облегчить чтение кода</p>
+<pre>
+  <code class="lang-js">
+    const keys = Object.keys(users);
+    keys.forEach((key) => {
+      const user = users[key];
+      console.log(`Пользователь: ${user.name}`);
+      console.log(`Возраст: ${user.age}`);
+      console.log(`Email: ${user.email}`);
+      console.log('---');
+    });
+  </code>
+</pre>
+  <p>Пример если нужно использовать фильтрацию для чего-либо. В данном примере для возраста</p>
+<pre>
+  <code class="lang-js">
+    const keys = Object.keys(users);
+    const filteredKeys = keys.filter((key) => users[key].age > 30);
+    filteredKeys.forEach((key) => {
+      const user = users[key];
+      console.log(`Пользователь: ${user.name}`);
+      console.log(`Возраст: ${user.age}`);
+      console.log(`Email: ${user.email}`);
+      console.log('---');
+    });
+
+    // Пользователь: Bob
+    // Возраст: 34
+    // Email: bob@example.com
+    // ---
+  </code>
+</pre>
+  <h2>Object.values()</h2>
+  <p>Используется для получения массива значений перечисляемых свойств объекта</p>
+<pre>
+  <code class="lang-js">
+    const obj = { a: 1, b: 2, c: 3 };
+    const values = Object.values(obj);
+    console.log(values); // [1, 2, 3]
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const products = {
+      apple: {
+        name: 'яблоки',
+        price: 80,
+      },
+      banana: {
+        name: 'бананы',
+        price: 100,
+      },
+      orange: {
+        name: 'апельсины',
+        price: 150,
+      },
+    };
+
+    const fruits = Object.values(products);
+
+    fruits.forEach((fruit) => {
+      console.log(`Продукт: ${fruit.name}, цена ${fruit.price} руб.`);
+    });
+
+    // Продукт: яблоки, цена 80 руб.
+    // Продукт: бананы, цена 100 руб.
+    // Продукт: апельсины, цена 150 руб.
+  </code>
+</pre>
+  <h2>Object.entries()</h2>
+  <p>Используется для получения массива пар [ключ: значение] перечисляемых свойств объекта</p>
+<pre>
+  <code class="lang-js">
+    const obj = { a: 1, b: 2, c: 3 };
+    const entries = Object.entries(obj);
+    console.log(entries); // [['a', 1], ['b', 2], ['c', 3]]
+    entries.forEach(([key, value]) => {
+      console.log(`${key}: ${value}`);
+    });
+
+    // a: 1
+    // b: 2
+    // c: 3
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const students = {
+      alice: {
+        name: 'Alice',
+        age: 22,
+        grade: 5,
+      },
+      bob: {
+        name: 'Bob',
+        age: 24,
+        grade: 4,
+      },
+      charlie: {
+        name: 'Charlie',
+        age: 21,
+        grade: 3,
+      }
+    };
+
+    const entries = Object.entries(students);
+    console.log(entries);
+    // Выводит многомерный массив
+    // [
+    //   [ 'alice', { name: 'Alice', age: 22, grade: 5 } ],
+    //   [ 'bob', { name: 'Bob', age: 24, grade: 4 } ],
+    //   [ 'charlie', { name: 'Charlie', age: 21, grade: 3 } ]
+    // ]
+
+    entries.forEach(([key, student]) => {
+      console.log(`ID студента ${key}`);
+      console.log(`Имя студента ${student.name}`);
+      console.log(`Возраст ${student.age}`);
+      console.log(`Оценка ${student.grade}`);
+      console.log(`---`);
+    })
+
+    // ID студента alice
+    // Имя студента Alice
+    // Возраст 22
+    // Оценка 5
+    // ---
+    // ID студента bob
+    // Имя студента Bob
+    // Возраст 24
+    // Оценка 4
+    // ---
+    // ID студента charlie
+    // Имя студента Charlie
+    // Возраст 21
+    // Оценка 3
+    // ---
+  </code>
+</pre>
+  <p>пример с фильтром по оценкам (5)</p>
+<pre>
+  <code class="lang-js">
+    const students = {
+      alice: {
+        name: 'Alice',
+        age: 22,
+        grade: 5,
+      },
+      bob: {
+        name: 'Bob',
+        age: 24,
+        grade: 4,
+      },
+      charlie: {
+        name: 'Charlie',
+        age: 21,
+        grade: 3,
+      }
+    };
+
+    const entries = Object.entries(students);
+    const filteredStudents = entries.filter(
+      ([, student]) => student.grade === 5
+    );
+
+    filteredStudents.forEach(([key, student]) => {
+      console.log(`ID студента ${key}`);
+      console.log(`Имя студента ${student.name}`);
+      console.log(`Возраст ${student.age}`);
+      console.log(`Оценка ${student.grade}`);
+      console.log(`---`);
+    })
+
+    // ID студента alice
+    // Имя студента Alice
+    // Возраст 22
+    // Оценка 5
+    // ---
+  </code>
+</pre>
+  <p>без пустой запятой в <code>filteredStudents</code> вывода в консоль не будет</p>
+</body>
+</html>

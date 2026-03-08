@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Многомерные массивы</h1>
+  <a href="../index.html">назад</a>
+<pre>
+  <code class="lang-js">
+    const students = [
+      ['Сергей Лобанов', 3, 521301],
+      ['Юлия Трофимова', 4, 521401],
+      ['Иван Петров', 2, 521201],
+      ['Мария Сидорова', 1, 521101],
+    ];
+
+    console.log(students[1][2]); //521401
+
+    for (const item of students) {
+      for (const element of item) {
+        let index = item.indexOf(element);
+        if (index === 0) {
+          console.log(`Студент: ${element}`);
+        } else if (index === 1) {
+          console.log(`\t Курс: ${element}`);
+        } else {
+          console.log(`\t Группа: ${element}`);
+        }
+      }
+    }
+
+    //Студент: Сергей Лобанов
+    //	 Курс: 3
+    //	 Группа: 521301
+    //Студент: Юлия Трофимова
+    //	 Курс: 4
+    //	 Группа: 521401
+    //Студент: Иван Петров
+    //	 Курс: 2
+    //	 Группа: 521201
+    //Студент: Мария Сидорова
+    //	 Курс: 1
+    //	 Группа: 521101
+  </code> 
+</pre>
+  <p>Пример с циклом for</p>
+<pre>
+  <code class="lang-js">
+    const students = [
+      ['Сергей Лобанов', 3, 521301],
+      ['Юлия Трофимова', 4, 521401],
+      ['Иван Петров', 2, 521201],
+      ['Мария Сидорова', 1, 521101],
+    ];
+
+    for (const item of students) {
+      for (let index = 0; index &lt; item.length; index++) {
+        if (index === 0) {
+          console.log(`Студент: ${item[index]}`);
+        } else if (index === 1) {
+          console.log(`\t Курс: ${item[index]}`);
+        } else {
+          console.log(`\t Группа: ${item[index]}`);
+        }
+      }
+    }
+
+    //Студент: Сергей Лобанов
+    //	 Курс: 3
+    //	 Группа: 521301
+    //Студент: Юлия Трофимова
+    //	 Курс: 4
+    //	 Группа: 521401
+    //Студент: Иван Петров
+    //	 Курс: 2
+    //	 Группа: 521201
+    //Студент: Мария Сидорова
+    //	 Курс: 1
+    //	 Группа: 521101
+  </code> 
+</pre>
+</body>
+</html>
