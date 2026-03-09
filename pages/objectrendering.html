@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .friends {
+      list-style-type: none;
+    }
+
+    .form-row {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .input {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    textarea.input {
+      width: 400px;
+      height: 100px;
+    }
+
+    .friends {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .friend {
+      width: 400px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      background-color: #2c8e60;
+    }
+
+    .comments {
+      margin-top: 10px;
+    }
+    .comment {
+      margin-bottom: 5px;
+      padding: 15px 10px;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      background-color: #052d25;
+    }
+
+    .button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .button:hover {
+      background-color: #a56c6c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Рендеринг данных из объекта</h1>
+  <a href="../index.html">назад</a>
+  <h1>Чатик для друзей</h1>
+    <ul class="friends" id="list"></ul>
+
+    <div class="form">
+    <h2>Оставьте комментарий</h2>
+    <div class="form-row">
+      <input
+        type="text"
+        id="name-input"
+        class="input"
+        placeholder="Введите имя"
+      />
+    </div>
+    <div class="form-row">
+      <textarea
+        id="comment-input"
+        class="input"
+        placeholder="Введите ваш комментарий"
+      ></textarea>
+      <br /><br />
+      <button class="button" id="add-comment-button">
+        Добавить комментарий
+      </button>
+    </div>
+  </div>
+  <h2>Код</h2>
+  <details>
+    <summary>HTML</summary>
+<pre>
+  <code class="lang-html">
+    &lt;h1>Чатик для друзей&lt;/h1>
+    &lt;ul class="friends" id="list">&lt;/ul>
+
+    &lt;div class="form">
+      &lt;h2>Оставьте комментарий&lt;/h2>
+      &lt;div class="form-row">
+        &lt;input
+          type="text"
+          id="name-input"
+          class="input"
+          placeholder="Введите имя"
+        />
+      &lt;/div>
+      &lt;div class="form-row">
+        &lt;textarea
+          id="comment-input"
+          class="input"
+          placeholder="Введите ваш комментарий"
+        >&lt;/textarea>
+        &lt;br />&lt;br />
+        &lt;button class="button" id="add-comment-button">
+          Добавить комментарий
+        &lt;/button>
+      &lt;/div>
+    &lt;/div>
+  </code>
+</pre>
+  </details>
+  <h3>JS</h3>
+<pre>
+  <code class="lang-js">
+    const friends = [
+      {
+        name: "Сережа",
+        comment: "Поболтаем?",
+      },
+      {
+        name: "Петр",
+        comment: "Давайте?",
+      },
+      {
+        name: "Ольга",
+        comment: "Ребята, как сходили в кино?",
+      },
+    ];
+
+    const listElement = document.getElementById('list');
+    const nameInputElement = document.getElementById('name-input');
+    const commentInput = document.getElementById('comment-input');
+    const addCommentButton = document.getElementById('add-comment-button');
+
+    function renderFriends() {
+      let friendsHtml = '';
+      friends.forEach((friend) => {
+        friendsHtml += `&lt;li class="friend">
+          &lt;p>${friend.name}&lt;/p>
+          &lt;div class="comments">
+            &lt;p class="comment">${friend.comment}&lt;/p>
+          &lt;/div>
+        &lt;/li>`
+      })
+      listElement.innerHTML = friendsHtml;
+    };
+
+    renderFriends();
+
+    addCommentButton.addEventListener('click', () => {
+      const name = nameInputElement.value.trim();
+      const comment = commentInput.value.trim();
+
+      if (name && comment) {
+        friends.push({
+          name: name,
+          comment: comment,
+        });
+
+        renderFriends();
+
+        nameInputElement.value = '';
+        commentInput.value = '';
+      } else {
+        alert('Введите имя и комментарий');
+      }
+    });
+  </code>
+</pre>
+  <script>
+    const friends = [
+      {
+        name: "Сережа",
+        comment: "Поболтаем?",
+      },
+      {
+        name: "Петр",
+        comment: "Давайте?",
+      },
+      {
+        name: "Ольга",
+        comment: "Ребята, как сходили в кино?",
+      },
+    ];
+
+    const listElement = document.getElementById('list');
+    const nameInputElement = document.getElementById('name-input');
+    const commentInput = document.getElementById('comment-input');
+    const addCommentButton = document.getElementById('add-comment-button');
+
+    function renderFriends() {
+      let friendsHtml = '';
+      friends.forEach((friend) => {
+        friendsHtml += `<li class="friend">
+          <p>${friend.name}</p>
+          <div class="comments">
+            <p class="comment">${friend.comment}</p>
+          </div>
+        </li>`
+      })
+      listElement.innerHTML = friendsHtml;
+    };
+
+    renderFriends();
+
+    addCommentButton.addEventListener('click', () => {
+      const name = nameInputElement.value.trim();
+      const comment = commentInput.value.trim();
+
+      if (name && comment) {
+        friends.push({
+          name: name,
+          comment: comment,
+        });
+
+        renderFriends();
+
+        nameInputElement.value = '';
+        commentInput.value = '';
+      } else {
+        alert('Введите имя и комментарий');
+      }
+    });
+  </script>
+</body>
+</html>
