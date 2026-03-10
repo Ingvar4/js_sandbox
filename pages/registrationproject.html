@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .wrapBody {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    h2 {
+      color: green;
+      font-size: 16px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      font-size: 16px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    #success-message,
+    #welcome-message {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Проект на JavaScript "Форма регистрации / авторизации"</h1>
+  <a href="../index.html">назад</a>
+  
+  <div class="wrapBody">
+    <div class="container">
+      <h1>Регистрация</h1>
+      <div>
+        <input type="text" id="username" placeholder="Введите логин" />
+        <div id="username-error" class="error"></div>
+      </div>
+      <div>
+        <input type="password" id="password" placeholder="Введите пароль" />
+        <div id="password-error" class="error"></div>
+      </div>
+      <div>
+        <input
+          type="password"
+          id="confirm-password"
+          placeholder="Подтвердите пароль"
+        />
+        <div id="confirm-password-error" class="error"></div>
+      </div>
+      <div>
+        <input
+          type="email"
+          id="email"
+          placeholder="Введите email (необязательно)"
+        />
+        <div id="email-error" class="error"></div>
+      </div>
+      <button id="register-button">Зарегистрироваться</button>
+      <div id="success-message" style="display: none">
+        <h2>Регистрация прошла успешно!</h2>
+      </div>
+    </div>
+  </div>
+
+  <details>
+    <summary>HTML</summary>
+<pre>
+  <code class="lang-html">
+    &lt;div class="container">
+      &lt;h1>Регистрация&lt;/h1>
+      &lt;div>
+        &lt;input type="text" id="username" placeholder="Введите логин" />
+        &lt;div id="username-error" class="error">&lt;/div>
+      &lt;/div>
+      &lt;div>
+        &lt;input type="password" id="password" placeholder="Введите пароль" />
+        &lt;div id="password-error" class="error">&lt;/div>
+      &lt;/div>
+      &lt;div>
+        &lt;input
+          type="password"
+          id="confirm-password"
+          placeholder="Подтвердите пароль"
+        />
+        &lt;div id="confirm-password-error" class="error">&lt;/div>
+      &lt;/div>
+      &lt;div>
+        &lt;input
+          type="email"
+          id="email"
+          placeholder="Введите email (необязательно)"
+        />
+        &lt;div id="email-error" class="error">&lt;/div>
+      &lt;/div>
+      &lt;button id="register-button">Зарегистрироваться&lt;/button>
+      &lt;div id="success-message" style="display: none">
+        &lt;h2>Регистрация прошла успешно!&lt;/h2>
+      &lt;/div>
+    &lt;/div>
+  </code>
+</pre>
+  </details>
+  <details>
+    <summary>JS</summary>
+<pre>
+  <code class="lang-js">
+    const registeredUsers = [
+      { username: "user1", password: "Password1!", email: "user1@example.com" },
+      { username: "user2", password: "Password2!", email: "user2@example.com" },
+      { username: "user3", password: "Password3!", email: "user3@example.com" },
+    ];
+
+    const usernameError = document.getElementById("username-error");
+    const passwordError = document.getElementById("password-error");
+    const confirmPasswordError = document.getElementById("confirm-password-error");
+    const emailError = document.getElementById("email-error");
+    const successMessage = document.getElementById("success-message");
+
+    function validateUsername(username) {
+      // Логин должен быть длиной от 3 до 20 символов и содержать только буквы и цифры
+      const usernameRegex = /^[a-zA-Z0-9]{3,20}$/;
+      return usernameRegex.test(username);
+    }
+
+    function validatePassword(password) {
+      // Пароль должен содержать не менее 8 символов, включая буквы в разных регистрах, цифры и специальные символы
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return passwordRegex.test(password);
+    }
+
+    function validateEmail(email) {
+      // Простая валидация email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    document.getElementById("register-button").addEventListener("click", () => {
+      // Очистка предыдущих ошибок при второй и последующих попытках
+      usernameError.textContent = "";
+      passwordError.textContent = "";
+      confirmPasswordError.textContent = "";
+      emailError.textContent = "";
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+      const email = document.getElementById("email").value;
+
+      try {
+        // Валидация логина
+        if (!validateUsername(username)) {
+          throw new Error(
+            "Логин должен содержать от 3 до 20 символов и состоять только из букв и цифр."
+          );
+        }
+
+        // Валидация пароля
+        if (!validatePassword(password)) {
+          throw new Error(
+            "Пароль должен содержать не менее 8 символов, включая буквы в разных регистрах, цифры и специальные символы."
+          );
+        }
+
+        // Проверка совпадения паролей
+        if (password !== confirmPassword) {
+          throw new Error(
+            "Пароли не совпадают, проверьте правильность повторного ввода пароля."
+          );
+        }
+
+        // Валидация email (если введено)
+        if (email && !validateEmail(email)) {
+          throw new Error("Введите корректный адрес электронной почты.");
+        }
+
+        // Проверка на существующего пользователя
+        let userExists = false;
+        let emailExists = false;
+
+        for (let i = 0; i &lt; registeredUsers.length; i++) {
+          if (registeredUsers[i].username === username) {
+            userExists = true;
+          }
+          if (email && registeredUsers[i].email === email) {
+            emailExists = true;
+          }
+        }
+
+        if (userExists) {
+          throw new Error("Пользователь с данным именем уже существует.");
+        }
+
+        if (emailExists) {
+          throw new Error("Пользователь с данным email уже существует.");
+        }
+
+        // Если валидация прошла успешно
+        successMessage.style.display = "block";
+      } catch (error) {
+        // Обработка ошибок
+        if (error.message.includes("Логин")) {
+          usernameError.textContent = error.message;
+        } else if (error.message.includes("Пароль")) {
+          passwordError.textContent = error.message;
+        } else if (error.message.includes("совпадают")) {
+          confirmPasswordError.textContent = error.message;
+        } else if (error.message.includes("email")) {
+          emailError.textContent = error.message;
+        } else if (error.message.includes("существует")) {
+          usernameError.textContent = error.message;
+        }
+      }
+    });
+  </code>
+</pre>
+  </details>
+  <script>
+    const registeredUsers = [
+      { username: "user1", password: "Password1!", email: "user1@example.com" },
+      { username: "user2", password: "Password2!", email: "user2@example.com" },
+      { username: "user3", password: "Password3!", email: "user3@example.com" },
+    ];
+
+    const usernameError = document.getElementById("username-error");
+    const passwordError = document.getElementById("password-error");
+    const confirmPasswordError = document.getElementById("confirm-password-error");
+    const emailError = document.getElementById("email-error");
+    const successMessage = document.getElementById("success-message");
+
+    function validateUsername(username) {
+      // Логин должен быть длиной от 3 до 20 символов и содержать только буквы и цифры
+      const usernameRegex = /^[a-zA-Z0-9]{3,20}$/;
+      return usernameRegex.test(username);
+    }
+
+    function validatePassword(password) {
+      // Пароль должен содержать не менее 8 символов, включая буквы в разных регистрах, цифры и специальные символы
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return passwordRegex.test(password);
+    }
+
+    function validateEmail(email) {
+      // Простая валидация email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    document.getElementById("register-button").addEventListener("click", () => {
+      // Очистка предыдущих ошибок при второй и последующих попытках
+      usernameError.textContent = "";
+      passwordError.textContent = "";
+      confirmPasswordError.textContent = "";
+      emailError.textContent = "";
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+      const email = document.getElementById("email").value;
+
+      try {
+        // Валидация логина
+        if (!validateUsername(username)) {
+          throw new Error(
+            "Логин должен содержать от 3 до 20 символов и состоять только из букв и цифр."
+          );
+        }
+
+        // Валидация пароля
+        if (!validatePassword(password)) {
+          throw new Error(
+            "Пароль должен содержать не менее 8 символов, включая буквы в разных регистрах, цифры и специальные символы."
+          );
+        }
+
+        // Проверка совпадения паролей
+        if (password !== confirmPassword) {
+          throw new Error(
+            "Пароли не совпадают, проверьте правильность повторного ввода пароля."
+          );
+        }
+
+        // Валидация email (если введено)
+        if (email && !validateEmail(email)) {
+          throw new Error("Введите корректный адрес электронной почты.");
+        }
+
+        // Проверка на существующего пользователя
+        let userExists = false;
+        let emailExists = false;
+
+        for (let i = 0; i < registeredUsers.length; i++) {
+          if (registeredUsers[i].username === username) {
+            userExists = true;
+          }
+          if (email && registeredUsers[i].email === email) {
+            emailExists = true;
+          }
+        }
+
+        if (userExists) {
+          throw new Error("Пользователь с данным именем уже существует.");
+        }
+
+        if (emailExists) {
+          throw new Error("Пользователь с данным email уже существует.");
+        }
+
+        // Если валидация прошла успешно
+        successMessage.style.display = "block";
+      } catch (error) {
+        // Обработка ошибок
+        if (error.message.includes("Логин")) {
+          usernameError.textContent = error.message;
+        } else if (error.message.includes("Пароль")) {
+          passwordError.textContent = error.message;
+        } else if (error.message.includes("совпадают")) {
+          confirmPasswordError.textContent = error.message;
+        } else if (error.message.includes("email")) {
+          emailError.textContent = error.message;
+        } else if (error.message.includes("существует")) {
+          usernameError.textContent = error.message;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

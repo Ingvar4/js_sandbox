@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+  <style>
+    .quizBody {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #191970;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #09508b;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #014d4d;
+    }
+
+    .question p {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .question label {
+      display: block;
+      margin-left: 20px;
+      margin-bottom: 5px;
+    }
+
+    .question input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .question-item {
+      margin-left: 50px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 24px;
+      text-align: center;
+      color: #ff0000;
+    }
+
+    #submitButton {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #191970;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all .3s;
+    }
+
+    #submitButton:hover {
+      background-color: #0a0a50;
+    }
+  </style>
+</head>
+<body>
+  <h1>quiz</h1>
+  <a href="../index.html">назад</a>
+  
+  <div class="quizBody">
+    <div class="container">
+      <h1>Тест по второму модулю</h1>
+      <form id="quizForm">
+        <!-- Вопросы будут добавлены сюда динамически -->
+      </form>
+      <button type="button" id="submitButton">Завершить тест</button>
+      <div id="result" class="result"></div>
+    </div>
+  </div>
+  <script type="module">
+    import { quiz } from "/data/quizData.js";
+    // Получаем форму, в которую будем добавлять вопросы
+    const quizForm = document.getElementById("quizForm");
+    // Создаем пустую строку для хранения HTML-кода
+    let quizHTML = "";
+    // Добавляем обработчик события на кнопку
+    document.getElementById("submitButton").addEventListener("click", submitQuiz);
+    // Добавляем элемент для вывода результатов
+    const resultDiv = document.getElementById("result");
+    // Функция для рендеринга вопросов
+    function renderQuiz() {
+      // Проходим по всем вопросам в викторине
+      for (let i = 0; i < quiz.questions.length; i++) {
+        // Получаем текущий вопрос
+        const question = quiz.questions[i];
+
+        // Создаем HTML для вопроса
+        let questionHTML = `<div class="question">
+          <p>${i + 1}. ${question.question}</p>`;
+
+        // Проходим по всем вариантам ответа для текущего вопроса
+        for (let j = 0; j < question.options.length; j++) {
+          // Получаем текущий вариант ответа
+          const option = question.options[j];
+
+          // Добавляем HTML для варианта ответа
+          // Использование name="question${i}" в HTML-коде для радиокнопок необходимо для того, чтобы браузер понимал, что все радиокнопки с одинаковым именем относятся к одному и тому же вопросу.
+          questionHTML += `
+            <label>
+              <input type="radio" name="question${i}" value="${j}">
+              ${option}
+            </label>`;
+        }
+
+        // Закрываем блок вопроса
+        questionHTML += `</div>`;
+
+        // Добавляем HTML для текущего вопроса в общую строку
+        quizHTML += questionHTML;
+      }
+
+      // Добавляем весь сгенерированный HTML в форму
+      quizForm.innerHTML = quizHTML;
+    }
+
+    // Функция для проверки ответов
+    function submitQuiz() {
+      let score = 0;
+
+      quiz.questions.forEach((q, index) => {
+        const selectedOption = document.querySelector(
+          `input[name="question${index}"]:checked`
+        );
+        if (selectedOption) {
+          const userAnswer = parseInt(selectedOption.value);
+          if (userAnswer === q.correctAnswer) {
+            score++;
+          }
+        }
+      });
+
+      resultDiv.textContent = `Ваш результат: ${score} из ${quiz.questions.length}`;
+    }
+
+    // Инициализация теста
+    renderQuiz();
+  </script>
+</body>
+</html>
