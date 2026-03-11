@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Рекурсия</h1>
+  <a href="../index.html">назад</a>
+  <p>Рекурсия это метод решения задач, при котором функция вызывает саму себя для решения подзадач.</p>
+  <p>Базовый случай (base case) (терминальное условие) - это условие, при котором функция перестаёт вызывать саму себя и возвращает результат. Без базового случая рекурсия может привести к бесконечному циклу и переполнению стека вызовов.</p>
+  <p>Рекурсивный случай (Recursive Case) (правило движения по рекурсии) - это условие, при котором функция вызывает саму себя с изменёнными аргументами, чтобы приблизиться к базовому случаю.</p>
+<pre>
+  <code class="lang-js">
+    let myArray = [2, 4, 6, 8, 10];
+
+    function getLength(arr) {
+      if(arr.pop() === undefined) {
+        return 0;
+      }
+
+      return 1 + getLength(arr);
+    }
+
+    let length = getLength(myArray);
+    console.log('Длинна массива: ' + length); //Длинна массива: 5
+  </code>
+</pre>
+</body>
+</html>

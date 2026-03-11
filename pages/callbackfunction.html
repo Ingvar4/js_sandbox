@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Функции высшего порядка / callback</h1>
+  <a href="../index.html">назад</a>
+<pre>
+  <code class="lang-js">
+    let a = 3;
+
+    const plusNum = (num) => a + num;
+    const minusNum = (num) => a - num;
+    const multiplyNum = (num) => a * num;
+    const divideNum = (num) => a / num;
+
+    function calculate(mathFn, num) {
+      let result = mathFn(num);
+      console.log(result);
+    };
+
+    calculate(divideNum, 4);
+  </code>
+</pre>
+  <p>Еще пример</p>
+<pre>
+  <code class="lang-js">
+    const paramA = () => 3;
+    const paramB = () => 4;
+    const paramC = () => 5;
+
+    const plusNum = (num, num2) => num + num2;
+    const minusNum = (num, num2) => num - num2;
+    const multiplyNum = (num, num2) => num * num2;
+    const divideNum = (num, num2) => num / num2;
+
+    function calculate(mathFn, num, param) {
+      const paramValue = param();
+      let result = mathFn(num, paramValue);
+      console.log(result);
+    };
+
+    calculate(multiplyNum, 6, paramB); //24
+  </code>
+</pre>
+</body>
+</html>
