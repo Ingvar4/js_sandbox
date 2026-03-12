@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Работа с параметрами времени: объект Date</h1>
+  <a href="../index.html">назад</a>
+  <h2>Создание объекта Date</h2>
+  <h3>1. Использование пустого конструктора</h3>
+<pre>
+  <code class="lang-js">
+    let currentDate = new Date();
+    console.log(currentDate); //2026-03-12T06:40:36.403Z
+  </code>
+</pre>
+  <p>Время выводится по Гринвичу</p>
+  <h3>2. Передача в конструктор количества миллисекунд</h3>
+<pre>
+  <code class="lang-js">
+    let myDate = new Date(1773297876892); 
+    console.log(myDate); //2026-03-12T06:44:36.892Z
+  </code>
+</pre>
+  <p>Получение значения миллисекунд</p>
+<pre>
+  <code class="lang-js">
+    let myDate = +new Date(); 
+    console.log(myDate); //1773297876892
+  </code>
+</pre>
+  <p>Отсчёт ведётся с 1 января 1970г. (Запуск unix)</p>
+  <p>Получение кол-ва миллисекунд 10 дней назад</p>
+<pre> 
+  <code class="lang-js">
+    let myDate = +new Date(); 
+    let tenDaysAgo = 10 * 24 * 60 * 60 * 1000;
+    let searchDate = myDate - tenDaysAgo;
+    console.log(searchDate); //1772434585685
+  </code>
+</pre>
+  <h3>3. Передача в конструктор дня, месяца и года</h3>
+<pre> 
+  <code class="lang-js">
+    let myDate = new Date('12 March 2026'); 
+    console.log(myDate); //2026-03-11T21:00:00.000Z
+  </code>
+</pre>
+  <p>или</p>
+<pre> 
+  <code class="lang-js">
+    let myDate = new Date('3/12/2026');
+    console.log(myDate); //2026-03-11T21:00:00.000Z
+  </code>
+</pre>
+  <h3>4. Передача в конструктор параметров даты и времени</h3>
+  
+</body>
+</html>

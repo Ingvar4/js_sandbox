@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Планирование вызова: setTimeout и setInterval</h1>
+  <a href="../index.html">назад</a>
+  <p>Функция <code>setTimeout</code> позволяет вызывать колбэк один раз через определённый интервал времени</p>
+  <p>Функция <code>setInterval</code>позволяет вызывать колбэк регулярно, повторяя вызов через определённый интервал времени</p>
+  <h2>setTimeout</h2>
+  <p>Синтаксис</p>
+<pre>
+  <code class="lang-js">
+    setTimeout(function, delay, param1, param2, ...);
+
+    //function: функция, которая будет выполнена после задержки
+    //delay: зарежка в миллисекундах (1000мс - 1 сек)
+    //param1, param2, ...дополнительные параметры, которые будут переданы в функцию
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    setTimeout(() => {
+      console.log('Прошло 5 секунд');
+    }, 5000);
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    function logMessage() {
+      console.log('Прошло 5 секунд');
+    }
+
+    setTimeout(logMessage, 5000);
+    console.log('Этот код будет выполнен сразу');
+
+    //Этот код будет выполнен сразу
+    //Прошло 5 секунд
+  </code>
+</pre>
+  <p>Пример с передачей параметров</p>
+<pre>
+  <code class="lang-js">
+    setTimeout((name, age) => {
+      console.log(`Привет, ${name}! Тебе ${age} лет`);
+    }, 2000, 'Иван', 30); //Привет, Иван! Тебе 30 лет
+  </code>
+</pre>
+  <p>Пример с отменой операции через clearTimeout</p>
+<pre>
+  <code class="lang-js">
+    const timerId = setTimeout(() => {
+      console.log('Прошло 5 секунд');
+    }, 5000);
+
+    setTimeout(() => {
+      clearTimeout(timerId);
+      console.log('Таймер отменен');
+    }, 3000);
+
+    //Таймер отменен
+  </code>
+</pre>
+  <p>Пример с отменой таймера через пользовательский ввод</p>
+<pre>
+  <code class="lang-js">
+    const timerId = setTimeout(() => {
+      console.log('Прошло 10 секунд');
+    }, 10000);
+
+    function checkForCancel() {
+      const userInput = prompt('Введите "отмена" для отмены таймера');
+
+      if (userInput && userInput.toLowerCase() === 'отмена') {
+        clearTimeout(timerId);
+        console.log('Таймер отменен');
+      } else {
+        setTimeout(checkForCancel, 1000);
+      }
+    };
+
+    setTimeout(checkForCancel, 1000);
+  </code>
+</pre>
+  <p>userInput && userInput.toLowerCase() - такая конструкция, чтобы при нажатии в окне 'Отмена', не вываливалась ошибка, потому что prompt работает  с true или false, а у нас userInput приводится к строке, соотв. prompt не работает со строками. Чтобы наше выражение приняло булевые значения мы добавляем <code>userInput &&</code></p>
+  <h2>setInterval</h2>
+<pre>
+  <code class="lang-js">
+    let timerId = setInterval(() => {
+      alert('tick');
+    }, 2000);
+
+    setTimeout(() => {
+      clearInterval(timerId);
+      alert('stop');
+    }, 8000);
+  </code>
+</pre>
+</body>
+</html>

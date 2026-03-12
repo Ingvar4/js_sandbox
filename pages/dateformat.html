@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Форматирование даты и времени</h1>
+  <a href="../index.html">назад</a>
+  <h2>toLocaleDateString()</h2>
+<pre>
+  <code class="lang-js">
+    const currentDate = new Date();
+    const myFormattedDate = currentDate.toLocaleDateString('ru-RU', {
+      weekday: 'long',
+    });
+
+    console.log(myFormattedDate); //четверг
+  </code>
+</pre>
+  <p>Использование параметра options</p>
+<pre>
+  <code class="lang-js"> 
+    const currentDate = new Date();
+
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    const myFormattedDate = currentDate.toLocaleDateString('ru-RU', options);
+
+    console.log(myFormattedDate); //четверг, 12 марта 2026 г.
+  </code>
+</pre>
+  <h2>toLocaleTimeString()</h2>
+<pre>
+  <code class="lang-js"> 
+    const currentDate = new Date();
+    const myFormattedTime = currentDate.toLocaleTimeString('ru-RU');
+
+    console.log(myFormattedTime); //11:54:22
+  </code>
+</pre>
+</body>
+</html>

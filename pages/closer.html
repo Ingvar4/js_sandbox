@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Замыкание (Closer)</h1>
+  <a href="../index.html">назад</a>
+  <p>Замыкание - это функция, которая запоминает значение переменных из окружающей её области видимости даже после того, как эта область видимости завершила свою работу.</p>
+  <p>Функция, создающая свою область видимости для блока кода, который выдаётся как рельтат работы этой функции</p>
+<pre>
+  <code class="lang-js">
+    let multiplier;
+    multiplier = 2;
+
+    let result = function (number) {
+      return number * multiplier;
+    };
+
+    console.log(result(5)); //10
+    multiplier = 3;
+    console.log(result(5)); //15
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    function createMultiplier(multiplier) {
+      return function (number) {
+        return number * multiplier;
+      };
+    };
+
+    const double = createMultiplier(2);
+    const triple = createMultiplier(3);
+
+    console.log(double(5)); //10
+    console.log(triple(5)); //15
+  </code>
+</pre>
+</body>
+</html>
