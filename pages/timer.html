@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Таймер на JavaScript</h1>
+  <a href="../index.html">назад</a>
+<pre>
+  <code class="lang-js">
+    const timer = (deadline) => {
+      if (isNaN(+deadline)) {
+        console.log('Передано некорректное число');
+        return;
+      }
+      let time = deadline;
+      console.log(time);
+      const interval = setInterval(() => {
+        time -= 1;
+        console.log(time);
+      }, 1000);
+      setTimeout(() => {
+        clearInterval(interval);
+        console.log('Время истекло');
+      }, deadline * 1000);
+    };
+
+    const deadline = prompt('На сколько секунд установить таймер?');
+    timer(deadline);
+  </code>
+</pre>
+</body>
+</html>

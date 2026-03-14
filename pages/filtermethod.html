@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Метод filter()</h1>
+  <a href="../index.html">назад</a>
+  <p>Пример с сортировкой чётных чисел</p>
+<pre>
+  <code class="lang-js">
+    const arr = [3, 4, 6, 7, 88, 45, 66];
+    const even = arr.filter((el) => el % 2 === 0);
+    console.log(even); //[ 4, 6, 88, 66 ]
+  </code>
+</pre>
+  <p>синтаксис</p>
+<pre>
+  <code class="lang-js">
+    const newArray = array.filter(callback(element[, index[, array]])[, thisArg]);
+  </code>
+</pre>
+  <ul>
+    <li>callback - функция, которая будет вызвана для каждого элемента массива. Она должна возвращать true, чтобы сохранить элемент в новом массиве, или false, чтобы отбросить его.</li>
+    <li>element - текущий обрабатываемый элемент массива.</li>
+    <li>index - (необязательно) индекс текущего обрабатываемого элемента в массиве.</li>
+    <li>array - (необязательно) исходный массив, на котором был вызван метод filter.</li>
+    <li>thisArg (необязательно) значение, используемое в качестве this при выполнении функции callback</li>
+  </ul>
+<pre>
+  <code class="lang-js">
+    const arr = [3, 4, 6, 7, 88, 45, 66];
+    const filteredNumbers = arr.filter((num) => num > 10);
+    console.log(filteredNumbers); //[ 88, 45, 66 ]
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const words = ['Рябина', 'Ива', 'Клён', 'Тополь', 'Черёмуха'];
+    const longWords = words.filter((word) => word.length > 5);
+    console.log(longWords); //[ 'Рябина', 'Тополь', 'Черёмуха' ]
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const people = [
+      {name: 'Alice', age: 25},
+      {name: 'Bob', age: 35},
+      {name: 'John', age: 12},
+    ];
+
+    const adults = people.filter((person) => person.age >= 18);
+    console.log(adults); //[ { name: 'Alice', age: 25 }, { name: 'Bob', age: 35 } ]
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const topics = [
+      'JavaScript Basics',
+      'Python for Beginners',
+      'Advanced JavaScript',
+      'PHP for Beginners',
+    ];
+
+    const jstopics = topics.filter((topic) => topic.includes('JavaScript'));
+    console.log(jstopics); //[ 'JavaScript Basics', 'Advanced JavaScript' ]
+  </code>
+</pre>
+</body>
+</html>
