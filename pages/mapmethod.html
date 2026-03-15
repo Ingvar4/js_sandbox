@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Метод map()</h1>
+  <a href="../index.html">назад</a>
+  <p>Синтаксис</p>
+<pre>
+  <code class="lang-js">
+    const newArray = array.map(callback(element[, index[, array]])[, thisArg]);
+  </code>
+</pre>
+  <ul>
+    <li>callback - функция, которая будет вызвана для каждого элемента массива. Она должна возвращать значение, которое будет добавлено в новый массив.</li>
+    <li>element - текущий обрабатываемый элемент массива</li>
+    <li>index (необязательно) - индекс текущего обрабатываемого элемента в массиве</li>
+    <li>array (необязательно) - исходный массив, на котором был вызван метод map</li>
+    <li>thisArg (необязательно) - значение, используемое в качесте this при выполнении функции callback</li>
+  </ul>
+  <p>Пример</p>
+<pre>
+  <code class="lang-js">
+    const numbers = [1, 2, 3, 4, 5];
+    const doubledNumbers = numbers.map((num) => num * 2);
+    console.log(doubledNumbers); //[ 2, 4, 6, 8, 10 ]
+  </code>
+</pre>
+  <p>Пример преобразования массива строк в новый массив с длинной этих строк</p>
+<pre>
+  <code class="lang-js">
+    const words = ['Apple', 'Banana', 'Cherry', 'date'];
+    const wordLengths = words.map((word) => word.length);
+    console.log(wordLengths); //[ 5, 6, 6, 4 ]
+  </code>
+</pre>
+  <p>Пример с коллекцией объектов</p>
+<pre>
+  <code class="lang-js">
+    const people = [
+      {name: 'Alice', age: 25},
+      {name: 'Bob', age: 35},
+      {name: 'John', age: 20},
+    ];
+
+    const names = people.map(person => person.name);
+    console.log(names); //[ 'Alice', 'Bob', 'John' ]
+
+    const names2 = people.map(person => person.name).join(', ');
+    console.log(names2); //Alice, Bob, John
+  </code>
+</pre>
+  <p>Пример с рендером через map в html</p>
+<pre>
+  <code class="lang-js">
+    const tasks = [
+      { id: 1, description: 'Купить хлеба', completed: false },
+      { id: 2, description: 'Сделать домашку', completed: true },
+      { id: 3, description: 'Позвонить маме', completed: false },
+    ];
+
+    const tasklist = document.getElementById('task-list');
+    const taskItems = tasks.map((task) => 
+      `&lt;li>${task.description}&lt;/li>`).join('');
+
+    tasklist.innerHTML = taskItems;
+  </code>
+</pre>
+  <ul id="task-list"></ul>
+</body>
+</html>
