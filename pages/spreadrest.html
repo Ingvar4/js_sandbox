@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Оператор "..." (spread / rest)</h1>
+  <a href="../index.html">назад</a>
+  <p>Пример spread</p>
+<pre>
+  <code class="lang-js">
+    const fruits = ['banana', 'cherry', 'lemon', 'orange', 'pear'];
+    const numbers = [3, 4, 12, 6, 8];
+
+    const addedFruits = ['apple', ...fruits, 'plum'];
+    const addedNumbers = [5, ...numbers, '7', '88'];
+
+    console.log(addedFruits);
+    console.log(addedNumbers);
+
+    // [
+    //   'apple',  'banana',
+    //   'cherry', 'lemon',
+    //   'orange', 'pear',
+    //   'plum'
+    // ]
+    // [
+    //   5, 3, 4,   12,
+    //   6, 8, '7', '88'
+    // ]
+  </code>
+</pre>
+  <p>Пример с копированием объекта и изменением свойств без изменения исходного объекта</p>
+  <p>Так происходит, потому что формируется новый объект а не сохранение по ссылке</p>
+<pre>
+  <code class="lang-js">
+    const person = {
+      id: 1,
+      name: 'Bob',
+      surname: 'Vatson',
+      age: 29,
+      skills: ['HTML', 'CSS', 'JS', 'PHP'],
+    };
+
+    const person2 = { ...person };
+    person2.id = 2;
+    person2.name = 'Kot';
+
+    console.table(person);
+    console.table(person2);
+
+    // ┌─────────┬────────┬───────┬──────┬───────┬──────────┐
+    // │ (index) │ 0      │ 1     │ 2    │ 3     │ Values   │
+    // ├─────────┼────────┼───────┼──────┼───────┼──────────┤
+    // │ id      │        │       │      │       │ 1        │
+    // │ name    │        │       │      │       │ 'Bob'    │
+    // │ surname │        │       │      │       │ 'Vatson' │
+    // │ age     │        │       │      │       │ 29       │
+    // │ skills  │ 'HTML' │ 'CSS' │ 'JS' │ 'PHP' │          │
+    // └─────────┴────────┴───────┴──────┴───────┴──────────┘
+    // ┌─────────┬────────┬───────┬──────┬───────┬──────────┐
+    // │ (index) │ 0      │ 1     │ 2    │ 3     │ Values   │
+    // ├─────────┼────────┼───────┼──────┼───────┼──────────┤
+    // │ id      │        │       │      │       │ 2        │
+    // │ name    │        │       │      │       │ 'Kot'    │
+    // │ surname │        │       │      │       │ 'Vatson' │
+    // │ age     │        │       │      │       │ 29       │
+    // │ skills  │ 'HTML' │ 'CSS' │ 'JS' │ 'PHP' │          │
+    // └─────────┴────────┴───────┴──────┴───────┴──────────┘
+  </code>
+</pre>
+  <p>Пример rest</p>
+<pre>
+  <code class="lang-js">
+    const numbers = [2, 4, 7, 9, 12];
+
+    function print(a, b, ...args) {
+      console.log(a, b);
+      console.log(args);
+    };
+
+    print(...numbers); //2 4
+                      //[ 7, 9, 12 ]
+  </code>
+</pre>
+<pre>
+  <code class="lang-js">
+    const numbers = [2, 4, 7, 9, 12];
+
+    function print(a, b, c, ...args) {
+      let result = a + b + c;
+      console.log(result);
+      console.log(args);
+    };
+
+    print(...numbers); //13
+                      //[ 9, 12 ]
+  </code>
+</pre>
+</body>
+</html>

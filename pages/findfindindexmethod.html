@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Методы find() и findIndex()</h1>
+  <a href="../index.html">назад</a>
+  <p>Синтаксис</p>
+<pre>
+  <code class="lang-js">
+    arr.find(callback[, thisArg])
+  </code>
+</pre>
+  <ul>
+    <li>callback - функция, вызывающаяся для каждого значения в массиве, поигимает 3 аргумента</li>
+    <li>element - текущий обрабатываемый элемент в массиве</li>
+    <li>index - (необязательный параметр) индекс текущего обрабатываемого элемента в массиве</li>
+    <li>array - (необязательный параметр) массив, по которому осуществляется проход</li>
+    <li>thisArg - (необязательный параметр) значение, используемое в качестве this при выполнении callback</li>
+  </ul>
+  <p>Возвращаемое значение - значение элемента из массива, если элемент прошел проверку, иначе undefined</p>
+  <img src="/img/3.png" alt="">
+<pre>
+  <code class="lang-js">
+    const users = [
+      {
+        name: "Рустам",
+        age: 28,
+        city: "Казань",
+        skills: ["HTML", "CSS", "JavaScript", "React", "PHP"],
+      },
+      {
+        name: "Елена",
+        age: 34,
+        city: "Краснодар",
+        skills: ["HTML", "CSS", "JavaScript", "React", "Vue"],
+      },
+      {
+        name: "Роман",
+        age: 22,
+        city: "Тбилиси",
+        skills: ["HTML", "CSS", "JavaScript", "PHP"],
+      },
+      {
+        name: "Анна",
+        age: 45,
+        city: "Минск",
+        skills: ["Python, PHP"],
+      },
+    ];
+
+    const userInMinsk = users.find((user) => user.city === 'Минск');
+    console.log(userInMinsk); //{ name: 'Анна', age: 45, city: 'Минск', skills: [ 'Python, PHP' ] }
+
+    const userOlderThan30 = users.find((person) => person.age > 30);
+    console.log(userOlderThan30); 
+
+    // {
+    //   name: 'Елена',
+    //   age: 34,
+    //   city: 'Краснодар',
+    //   skills: [ 'HTML', 'CSS', 'JavaScript', 'React', 'Vue' ]
+    // }
+
+    //Выводит 1е совпадение (Елена). Есть и другие пользователи старше 30
+    //но функция прекращает работу после нахождения 1го соответствия
+
+    const userHasVue = users.find((user) => user.skills.includes('Vue'));
+    console.log(userHasVue);
+    //Опять выдаёт Елену
+    // {
+    //   name: 'Елена',
+    //   age: 34,
+    //   city: 'Краснодар',
+    //   skills: [ 'HTML', 'CSS', 'JavaScript', 'React', 'Vue' ]
+    // }
+  </code>
+</pre>
+</body>
+</html>

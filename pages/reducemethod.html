@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Метод reduce()</h1>
+  <a href="../index.html">назад</a>
+  <p>Метод reduce() перебирает элементы массива и сводит их к одному значению.</p>
+<pre>
+  <code class="lang-js">
+    const array = [1, 2, 3, 4];
+
+    const initialValue = 10;
+    const sumWithInitial = array.reduce(
+      (accumularor, currentValue, index, array) => {
+        return accumularor + currentValue;
+      },
+      initialValue
+    );
+
+    console.log(sumWithInitial);
+  </code>
+</pre>
+  <p>Пример с подсчётом средней зарплаты сотрудников</p>
+<pre>
+  <code class="lang-js">
+    const employees = [
+      { id: 1, name: 'Alice', salary: 50000 },
+      { id: 2, name: 'Bob', salary: 60000 },
+      { id: 3, name: 'Gop', salary: 55000 },
+      { id: 4, name: 'Pop', salary: 70000 },
+      { id: 5, name: 'Poop', salary: 45000 },
+    ];
+
+    const totalSalary = employees.reduce(
+      (sum, employees) => sum + employees.salary, 0
+    );
+
+    let avarageSalary = totalSalary / employees.length;
+    console.log(avarageSalary); //56000
+  </code>
+</pre>
+</body>
+</html>
