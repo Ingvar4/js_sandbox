@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Деструктуризация массивов в JavaScript</h1>
+  <a href="../index.html">назад</a>
+  <p>Пример с присваиванием значений переменным из массивов</p>
+<pre>
+  <code class="lang-js">
+    const numbers = [1, 3, 5, 7, 9, 11];
+    const fruits = ['banana', 'cherry', 'lemon', 'orange', 'pear'];
+
+    const [firstNum, secondNum, thirdNum, fourthNum ] = numbers;
+    const [first, second, third, fourth] = fruits;
+
+    console.log(firstNum, secondNum, thirdNum, fourthNum); //1 3 5 7
+    console.log(first, second, third, fourth); //banana cherry lemon orange
+  </code>
+</pre>
+  <p>Пример, если нужно пропустить какие-либо элементы</p>
+<pre>
+  <code class="lang-js">
+    const fruits = ['banana', 'cherry', 'lemon', 'orange', 'pear'];
+
+    const [first, , third, , fifth] = fruits;
+    console.log(first, third, fifth); //banana lemon pear
+  </code>
+</pre>
+  <p>Оставшиеся неиспользованные индексы можно определить в rest</p>
+<pre>
+  <code class="lang-js">
+    const fruits = ['banana', 'cherry', 'lemon', 'orange', 'pear'];
+
+    const [first, second, ...tail] = fruits;
+    console.log(first, second, tail); //banana cherry [ 'lemon', 'orange', 'pear' ]
+  </code>
+</pre>
+  <p>Пример того, что при деструктурирующем присваивании можно задавать значения по умолчанию</p>
+  <p>Значение по умолчанию присвоится, если в изначальном массиве этого значения нет</p>
+<pre>
+  <code class="lang-js">
+    const fruits = ['banana', , 'lemon', 'orange', 'pear'];
+
+    const [first, second = 'grape', ...tail] = fruits;
+    console.log(first, second, tail); //banana grape [ 'lemon', 'orange', 'pear' ]
+  </code>
+</pre>
+  <p>Пример с оператором ИЛИ <code>||</code> для тех случаев, когда массив по какой то причине недоступен (к примеру нет ответа от сервера)</p>
+<pre>
+  <code class="lang-js">
+    const fruits = null;
+
+    const [first, second = 'grape', ...tail] = fruits || [];
+    console.log(first, second, tail); //undefined grape []
+  </code>
+</pre>
+  <p>Пример с многомерным массивом</p>
+  <p>Вложенные массивы в многомерном массиве становятся отдельными переменными</p>
+<pre>
+  <code class="lang-js">
+    const fruits = ['banana', ['cherry', 'lemon'], 'orange', 'pear'];
+
+    const [first, second, third, fourth] = fruits;
+    console.log(first, second, third, fourth); //banana [ 'cherry', 'lemon' ] orange pear
+
+    //получилось что переменная second это весь вложенный массив
+  </code>
+</pre>
+  <p>Если нам нужно добиться соответствия с оригинальным массивом, деструктурирование нужно сделать так же вложенным</p>
+<pre>
+  <code class="lang-js">
+    const fruits = ['banana', ['cherry', 'lemon'], 'orange', 'pear'];
+
+    const [first, [second, third], fourth] = fruits;
+    console.log(first, second, third, fourth); //banana cherry lemon orange
+  </code>
+</pre>
+  <p>Если нужно избежать ошибок при отсутствии вложенного массива, ему присваивается значение по умолчанию пустого массива</p>
+<pre>
+  <code class="lang-js">
+    const fruits = null;
+
+    const [first, [second, third] = [], fourth] = fruits || [];
+    console.log(first, second, third, fourth); //undefined undefined undefined undefined
+  </code>
+</pre>
+  <p>Пример с созданием "заглушек" для отсутствующих переменных</p>
+<pre>
+  <code class="lang-js">
+    const fruits = null;
+
+    const [first = 'какой-то фрукт', [second = 'какой-то фрукт', third = 'какой-то фрукт'] = [], fourth = 'какой-то фрукт'] = fruits || [];
+    console.log(first, second, third, fourth); //какой-то фрукт какой-то фрукт какой-то фрукт какой-то фрукт
+  </code>
+</pre>
+  <p>Пример как быстро заменить значения переменных. </p>
+<pre>
+  <code class="lang-js">
+    let a  = 5;
+    let b = 10;
+
+    [a, b] = [b, a];
+    console.log(a, b); //10 5
+  </code>
+</pre>
+  <p>В правой части создаётся массив, а в левой - деструктуризация. Слева объявляются новые переменные, а справа им пресваиваются значения данными из массива</p>
+</body>
+</html>

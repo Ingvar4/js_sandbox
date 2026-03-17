@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Деструктуризация объектов в JavaScript</h1>
+  <a href="../index.html">назад</a>
+  <p>При деструктуризации объектов уже нельзя давать произвольные названия переменным</p>
+<pre>
+  <code class="lang-js">
+    const person = {
+      id: 1,
+      fullName: 'John Jonson',
+      age: 34,
+      isMarried: true,
+      params: {
+        height: 178,
+        weight: 75,
+      },
+      hobbies: ['web', 'jogging', 'cycling'],
+    };
+
+    const { id, isMarried, age, fullName } = person;
+    console.log(id, isMarried, age, fullName); //1 true 34 John Jonson
+  </code>
+</pre>
+  <p>Пример с синтаксисом переименования для тех случаев когда имя нужной переменной для дестр. уже занято</p>
+<pre>
+  <code class="lang-js">
+    const person = {
+      id: 1,
+      fullName: 'John Jonson',
+      age: 34,
+      isMarried: true,
+      params: {
+        height: 178,
+        weight: 75,
+      },
+      hobbies: ['web', 'jogging', 'cycling'],
+    };
+
+    let age = 26;
+
+    const { id, isMarried, age: agePerson, fullName } = person;
+    console.log(id, isMarried, agePerson, fullName); //1 true 34 John Jonson
+  </code>
+</pre>
+  <p>Пример если названия переменных переименовывать нельзя. Убираем <code>const</code> и заключаем выражение в круглые скобки</p>
+<pre>
+  <code class="lang-js">
+    const person = {
+      id: 1,
+      fullName: 'John Jonson',
+      age: 34,
+      isMarried: true,
+      params: {
+        height: 178,
+        weight: 75,
+      },
+      hobbies: ['web', 'jogging', 'cycling'],
+    };
+
+    let id = 1;
+    let age = 26;
+
+    ({ id, isMarried, age, fullName } = person);
+    console.log(id, isMarried, age, fullName); //1 true 34 John Jonson
+  </code>
+</pre>
+  <p>Пример со значениями по умолчанию. Так же можно применить оператор остатка для вычисления остальных свойств</p>
+<pre>
+  <code class="lang-js">
+    const person = {
+      id: 1,
+      fullName: 'John Jonson',
+      age: 34,
+      isMarried: true,
+      params: {
+        height: 178,
+        weight: 75,
+      },
+      hobbies: ['web', 'jogging', 'cycling'],
+    };
+
+    const { id = 1, isMarried = false, age = null, ...otherProps } = person;
+    console.log(id, isMarried, age, otherProps);
+
+    // 1 true 34 {
+    //   fullName: 'John Jonson',
+    //   params: { height: 178, weight: 75 },
+    //   hobbies: [ 'web', 'jogging', 'cycling' ]
+    // }
+
+    //Остаток сам по себе является объектом
+  </code>
+</pre>
+  <p>Пример с деструктуризацией вложенных объектов</p>
+<pre>
+  <code class="lang-js">
+    const person = {
+      id: 1,
+      fullName: 'John Jonson',
+      age: 34,
+      isMarried: true,
+      params: {
+        height: 178,
+        weight: 75,
+      },
+      hobbies: ['web', 'jogging', 'cycling'],
+    };
+
+    const { params: { height, weight } } = person;
+    console.log(height, weight); //178 75
+  </code>
+</pre>
+  <p>Пример с тем, когда нужно извлечь вложенный массив</p>
+<pre>
+  <code class="lang-js">
+    const person = {
+      id: 1,
+      fullName: 'John Jonson',
+      age: 34,
+      isMarried: true,
+      params: {
+        height: 178,
+        weight: 75,
+      },
+      hobbies: ['web', 'jogging', 'cycling'],
+    };
+
+    const { hobbies: [, , lastHobby] } = person;
+    console.log(lastHobby); //cycling
+  </code>
+</pre>
+</body>
+</html>
