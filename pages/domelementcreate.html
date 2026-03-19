@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+  <style>
+    #list-block,
+    #to-buy {
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid black;  
+      background-color: rgb(10, 62, 62);
+    }
+    .item {
+      font-size: 24px;
+    }
+    .btn {
+      margin-left: 15px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+    }
+    .btn:hover {
+      background-color: red;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Динамическое создание, добавление и удаление элементов</h1>
+  <a href="../index.html">назад</a>
+  <div id="list-block">
+    <h1>Список покупок</h1>
+    <input type="text" placeholder="Купить">
+    <button>Добавить в список</button>
+    <ul id="to-buy"></ul>
+  </div>
+  <details>
+    <summary>HTML</summary>
+<pre>
+  <code class="lang-html">
+    &lt;div id="list-block">
+      &lt;h1>Список покупок&lt;/h1>
+      &lt;input type="text" placeholder="Купить">
+      &lt;button>Добавить в список&lt;/button>
+      &lt;ul id="to-buy">&lt;/ul>
+    &lt;/div>
+  </code>
+</pre>
+  </details>
+  <h2>JS</h2>
+<pre>
+  <code class="lang-js">
+    const listToBuy = document.getElementById('to-buy');
+    document.querySelector('button').addEventListener('click', handleClick);
+
+    function handleClick() {
+      const newPurchase = this.previousElementSibling.value.trim();
+      if(newPurchase) {
+        this.previousElementSibling.value = '';
+        createToBuy(newPurchase);
+      } else {
+        alert('Добавьте покупку');
+      }
+    }
+
+    function createToBuy(text) {
+      const liEl = document.createElement('li');
+      liEl.textContent = text;
+      liEl.classList.add('item');
+      listToBuy.append(liEl);
+      const liBtn = document.createElement('button');
+      liBtn.textContent = 'Удалить';
+      liBtn.classList.add('btn');
+      liEl.append(liBtn);
+      addDeleteListener(liBtn, liEl)
+      // liBtn.addEventListener('click', () => {
+      //   liEl.remove();
+      // });
+    }
+
+    function addDeleteListener (button, item) {
+      button.addEventListener('click', () => {
+        item.remove();
+      });
+    }
+  </code>
+</pre>
+</body>
+</html>
