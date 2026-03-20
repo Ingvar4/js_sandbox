@@ -41,7 +41,7 @@ a {
 pre {
   width: 100%;
   text-align: left;
-  background-color: #f6f5f4dd;
+  background-color: #fff4dadd;
   border-radius: 4px;
   overflow-x: auto;
 }
@@ -50,7 +50,7 @@ code {
   background-color: #fff4da13;
   padding: 1px 4px;
   border-radius: 4px;
-  font-family: 'Courier New', Courier, monospace;
+  /* font-family: 'Courier New', Courier, monospace; */
 }
 
 details {

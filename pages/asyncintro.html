@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Знакомство с асинхронностью</h1>
+  <a href="../index.html">назад</a>
+<pre>
+  <code class="lang-js">
+    console.log('Привет, я иду первым!');
+    setTimeout(() => console.log('Теперь иду я?'), 2000);
+    setTimeout(() => console.log('Когда моя очередь?'), 0);
+    console.log('Разве я последний?');
+
+    // Привет, я иду первым!
+    // Разве я последний?
+    // Когда моя очередь?
+    // Теперь иду я?
+  </code>
+</pre>
+  <img src="/img/4.png" alt="">
+  <p>console.log - синхронная функция, выполняется сразу. Она попадает в call stack, затем в консоль. Соответственно оба console.log выводятся один за другим в порядке очереди.</p>
+  <p>setTimeout - асинхронная функция, она отправляется в web apis после call stack. В web apis асинхронная функция находится пока не выполнятся все синхронные.</p>
+  <p>Когда call stack очищается, асинхронные функции перемещаются в callback queue, затем в call stack по очерёдности, в зависимости от своих таймеров.</p>
+</body>
+</html>
