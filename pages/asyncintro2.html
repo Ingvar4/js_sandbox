@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Синхронность и асинхронность в JavaScript</h1>
+  <a href="../index.html">назад</a>
+<pre>
+  <code class="lang-js">
+    console.log(1);
+
+    setTimeout(function () {
+      console.log(3);
+    }, 5000);
+
+    console.log(2);
+  </code>
+</pre>
+  <ul>
+    <li>1й console.log попадает в call stack, отрабатывает и уходит</li>
+    <li>setTimeout попадает в call stack и переносится в web apis</li>
+    <li>2й console.log попадает в call stack, отрабатывает и уходит</li>
+    <li>setTimeout отрабатывает свой таймер в web apis и переносит анонимную функцию (callback) в callback queue (только после очистки стека)</li>
+    <li>после callback queue анонимная функция переходит в call stack и там вызывается 3й console.log, затем событие завершается</li>
+  </ul>
+  <p>Принцип работы стека - последний зашел, первый вышел.</p>
+  <p>А в очереди - первый зашел, первый вышел</p>
+  <p>cоответственно из этого следует что в следующем примере будет вывод:</p>
+<pre>
+  <code class="lang-js">
+    console.log(1);
+
+    setTimeout(function () {
+      console.log(3);
+    }, 2000);
+
+    setTimeout(function () {
+      console.log(4);
+    }, 2000);
+
+    console.log(2); 
+    
+    // 1
+    // 2
+    // 3
+    // 4
+  </code>
+</pre>
+  <img src="/img/5.png" alt="">
+</body>
+</html>
