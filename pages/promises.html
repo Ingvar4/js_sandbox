@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Промисы (Promises)</h1>
+  <a href="../index.html">назад</a>
+  <p>Синтаксис</p>
+<pre>
+  <code class="lang-js">
+    const request = new Promise(function (resolve, reject) {
+      //функция исполнитель (executor)
+    });
+  </code>
+</pre>
+  <p>Или со стрелочной</p>
+<pre>
+  <code class="lang-js">
+    const request = new Promise((resolve, reject) => {
+      //функция исполнитель (executor)
+    });
+  </code>
+</pre>
+  <p>resolve, reject - это колбеки, функция вызывается сразу</p>
+  <p>Пример промиса</p>
+<pre>
+  <code class="lang-js">
+    const request = new Promise(function (resolve, reject) {
+      setTimeout(() => {
+        const success = true;
+        if(success) {
+          resolve('Данные успешно получены');
+        } else {
+          reject('Ошибка при получении данных');
+        }
+      }, 2000);
+    });
+
+    console.log(request);
+
+    // Promise: 
+    // "fulfilled"
+    // "Данные успешно получены"
+  </code>
+</pre>
+  <p>Соответственно при <code>const success = false;</code> будет reject</p>
+  <p>Еще пример + потребитель (код, который использует промис для обработки результата (then, catch, finally))</p>
+<pre>
+  <code class="lang-js">
+    const request = new Promise(function (resolve, reject) {
+      const success = Math.random();
+
+      if (success > 0.5) {
+        resolve('Успех, Значение больше 0.5');
+      } else {
+        reject(new Error('Ошибка при получении данных'));
+      }
+    });
+
+    request
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        console.log('Операция завершена');
+      });
+
+    //Успех, Значение больше 0.5
+    //Операция завершена
+  </code>
+</pre>
+  <p>Если выпадет меньше или равно 0.5 то соотв. будет обработана ошибка</p>
+  <p>Методы потребителя (then, catch, finally) опциональны</p>
+  <p>Сравнение цепочки callback и промиса</p>
+<pre>
+  <code class="lang-js">
+    request("/api/users/1", function (user) {
+      request(`/api/photos/${user.id}/`, function (photo) {
+        request(`/api/avatars/${photo.id}/`, function (response) {
+          console.log(response);
+        });
+      });
+    });
+
+
+    //
+    function request(url) {
+      return new Promise(function (resolve, reject) {
+        let responseFromServer;
+        /*...*/
+        resolve(responseFromServer);
+      });
+    }
+
+    request("/api/users/1")
+      .then((user) => request(`/api/photos/${user.id}/`))
+      .then((photo) => request(`/api/avatars/${photo.id}/`))
+      .then((response) => console.log(response));
+  </code>
+</pre>
+</body>
+</html>
