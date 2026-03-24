@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Цепочки промисов (Promise Chain)</h1>
+  <a href="../index.html">назад</a>
+  <p>Пример совокупности асинхронных задач, которые должны выполняться одна за другой</p>
+<pre>
+  <code class="lang-js">
+    const request = new Promise((resolve, reject) => {
+      setTimeout(() => resolve(1), 1000);
+    });
+
+    request
+      .then((result) => {
+        console.log(result);
+        return result * 2;
+      })
+      .then((result) => {
+        console.log(result);
+        return result * 2;
+      })
+      .then((result) => {
+        console.log(result);
+        return result * 2;
+      });
+
+    // 1
+    // 2
+    // 4
+  </code>
+</pre>
+  <p>В итоге методом <code>then</code> мы передаём данные по цепочке с помощью <code>return</code> и выполняем какую-то работу.</p>
+  <h3>Пример с оценкой производительности скрипта и выполнении работы внутри <code>then</code></h3>
+<pre>
+  <code class="lang-js">
+    const startAt = Date.now();
+    console.log(startAt);
+
+    const request = new Promise((resolve, reject) => {
+      setTimeout(() => resolve(1), 0);
+    });
+
+    request
+      .then((result) => {
+        console.log(result);
+        return result * 2;
+      })
+      .then((data) => {
+        console.log(data);
+        console.log('Время:' + (Date.now() - startAt));
+        return data;
+      })
+      .then((result) => {
+        console.log(result);
+        return result * 2;
+      })
+      .then((result) => {
+        console.log(result);
+        return result * 2;
+      })
+      .then((data) => {
+        console.log(data);
+        console.log('Время:' + (Date.now() - startAt));
+        return data;
+      })
+      .then((finalResult) => {
+        console.log('Финальный результат:', finalResult);
+      });
+
+    // 1774341993342
+    // 1
+    // 2
+    // Время:5
+    // 2
+    // 4
+    // 8
+    // Время:5
+    // Финальный результат: 8
+  </code>
+</pre>
+  <p><code>Время:5</code> это количество миллисекунд, которые нужны, чтобы скрипт дошел до определённого момента выполнения кода. Задержки в таймауте нет, если добавить секунду то будет <code>Время:1005</code></p>
+  <p>Если не делать цепочку, а каждое выражение начинать с <code>request</code>, то никакого умножения на 2 не будет, будут все 1, потому что данные не будут передаваться</p>
+  <p>Еще пример</p>
+<pre>
+  <code class="lang-js">
+    const request = new Promise((resolve, reject) => {
+      const success = 0.9; // Меняйте значение, например, 0,4, 0.6, 0.9
+      if (success > 0.5) {
+        resolve(success);
+      } else {
+        reject("Ошибка на первом этапе");
+      }
+    });
+
+    request
+      .then((result) => {
+        console.log("Первый then:", result);
+        if (result &lt; 0.7) {
+          throw new Error("Ошибка во втором then");
+        }
+        return result * 2;
+      })
+      .then((result) => {
+        console.log("Второй then:", result);
+        return result * 2;
+      })
+      .catch((error) => {
+        console.error("Первый catch:", error);
+        return "Значение по умолчанию"; // Возвращаем значение для продолжения
+      })
+      .then((result) => {
+        console.log("Третий then:", result);
+        throw new Error("Ошибка в третьем then"); // Пробрасываем новую ошибку
+      })
+      .catch((error) => {
+        console.error("Второй catch:", error.message);
+        return "Новое значение по умолчанию"; // Возвращаем значение для продолжения
+      })
+      .then((result) => {
+        console.log("Четвертый then:", result);
+      });
+  </code>
+</pre>
+</body>
+</html>
