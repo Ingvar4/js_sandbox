@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../styles/prism.css">
+  <script src="/main.js" defer></script>
+  <script src="../scripts/prism.js" defer></script>
+</head>
+<body>
+  <h1>Promise.resolve() / Promise.reject()</h1>
+  <a href="../index.html">назад</a>
+  <p>Пример с двумя аналогичными записями</p>
+<pre>
+  <code class="lang-js">
+    function fn() {
+      return new Promise((resolve) => {
+        resolve(1);
+      });
+    };
+
+    function fn2() {
+      return Promise.resolve(1);
+    };
+  </code>
+</pre>
+  <p>Promise.reject() - возвращает объект promise который отклонён по какой-либо причине</p>
+<pre>
+  <code class="lang-js">
+    const data = await Promise.reject(new Error('Данные не получены. Статус 500'));
+  </code>
+</pre>
+</body>
+</html>
