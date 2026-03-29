@@ -386,7 +386,415 @@
     </div>
     <div id="posts-container"></div>
   </div>
+<pre>
+  <code class="lang-js">
+    //1. По нажатию на кнопку 'Получить задачи' мы получаем список задач
+    //2. Отрендерить задачи, создав их элементы динамически
+    //3. Реализовать удаление из списка отдельной задачи
+    //4. Реализовать изменение статуса задачи
+    //5. Реализовать добавление новой задачи
+    //6. Реализовать обновление текста существующей задачи
+    //7. overlay, спиннер
+    const container = document.getElementById('posts-container');
+    const taskInput = document.getElementById('task-input');
+    const addButton = document.getElementById('add-button');
+    const downloadButton = document.querySelector('.button-download');
+    const overlay = document.getElementById('overlay');
+    //создаём отдельную переменную для переиспользования URL API для работы с задачами
+    const host = 'https://68382f1e2c55e01d184c4d9a.mockapi.io/api/v1/todos';
+    // Загрузка данных с сервера (READ)
+    async function getData() {
+      try {
+        showLoader(); //реализация 7 пункта, показываем спиннер загрузки
+        const responce = await fetch(host); // GET запрос к серверу
+        //старый вариант:
+        // const responce = await fetch('https://68382f1e2c55e01d184c4d9a.mockapi.io/api/v1/todos');
+        if(!responce.ok) {
+          throw new Error (`Данные не получены. Статус: ${responce.status}`)
+        }
+        const data = await responce.json(); // Преобразуем ответ в JSON
+        console.log('Данный получены', data);
+        renderData(data); // Отображаем задачи на странице
+      } catch (error) {
+        console.error(`Ошибка получения данных:`, error.message);
+      }
+    }
+    // Отрисовка задач на странице 
+    function renderData(todos) {
+      container.innerHTML = ''; //очищаем контейнер перед каждым вызовом функции
+      
+      todos.forEach((todo) => {
+        const todoElement = document.createElement('div');
+        //добавляем заготовленные стили для каждой задачи
+        todoElement.classList.add('todo');
+        //создаём чекбокс динамически и задаём ему тип + статус состояния
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = todo.completed;
+        //для реализации 4 задачи на изменение статуса
+        checkbox.addEventListener('change', () => toogleTodoStatus(todo.id, checkbox.checked));
+        //создаём элемент для текста задачи
+        const textElement = document.createElement('p');
+        textElement.textContent = todo.text;
+        //зачёркивать задачу при отметки о выполнении
+        textElement.style.textDecoration = todo.completed ? 'line-through' : 'none';
 
-    
+        //создаём элемент с датой и форматируем её
+        const timeElement = document.createElement('p');
+        timeElement.textContent = new Date(todo.createdAt).toLocaleString('ru-RU', {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+        //создаём кнопку удаления внутри задачи с заготовленными стилями
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('button-function');
+        const deleteIcon = document.createElement('img'); //внутри кнопки иконка
+        deleteIcon.src = '../images/icon-delete.png';
+        deleteIcon.alt = 'Удалить';
+        deleteIcon.title = 'Удалить';
+        deleteButton.append(deleteIcon);
+        //навешиваем обработчик на кнопку, вызываем функцию deleteTodo, куда пробрасываем id задач
+        deleteButton.addEventListener("click", () => deleteTodo(todo.id));
+
+        // Кнопка обновления текста задачи
+        const updateButton = document.createElement('button');
+        updateButton.classList.add('button-function');
+        const updateIcon = document.createElement('img');
+        updateIcon.src = '../images/icon-update.png';
+        updateIcon.alt = 'Изменить';
+        updateIcon.title = 'Изменить';
+        updateButton.append(updateIcon);
+        //Добавляем для 6 пункта, обновление текста существующей задачи
+        updateButton.addEventListener('click', () => {
+          const newText = prompt('Введите новый текст задачи', todo.text);
+          if (newText) {
+            updateTodo(todo.id, newText);
+          }
+        });
+
+        //пробрасываем всё это в todo элемент
+        todoElement.append(checkbox, textElement, timeElement, deleteButton, updateButton);
+        container.append(todoElement);
+        downloadButton.hidden = true; //скрываем кнопку получения задач после их рендера
+        hideLoader(); //реализация 7 пункта
+      }); 
+    }
+
+    //3. Реализовать удаление из списка отдельной задачи (DELETE)
+    async function deleteTodo(id) {
+      try {
+        const responce = await fetch(`${host}/${id}`, { method: 'DELETE' });
+        //старый вариант:
+        // const response = await fetch(`https://68382f1e2c55e01d184c4d9a.mockapi.io/api/v1/todos/${id}`);
+        if(!responce.ok) {
+          throw new Error (`Не удалось удалить задачу. Статус: ${responce.status}`);
+        }
+        console.log('Задача удалена');
+        getData(); //получение данных, обновление списка задач
+      } catch (error) {
+        console.error(`Ошибка удаления:`, error.message);
+      }
+    }
+
+    //4. Реализовать изменение статуса задачи (PUT)
+    //параметры будут приходить из функции где отрендерились все задачи
+    async function toogleTodoStatus(id, completed) {
+      try {
+        //дополнительно понадобятся заголовки и тело
+        const responce = await fetch(`${host}/${id}`, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json',},
+          body: JSON.stringify({completed}),
+        });
+        if(!responce.ok) {
+          throw new Error (`Не удалось обновить статус задачи. Статус: ${responce.status}`);
+        }
+        console.log('Статус задачи обновлён');
+        getData(); //получение данных, обновление списка задач
+      } catch (error) {
+        console.error(`Ошибка обновления статуса задачи:`, error.message);
+      }
+    }
+
+    //5. Реализовать добавление новой задачи (CREATE)
+    async function addTodo() {
+      const newTodoText = taskInput.value.trim();
+      if (!newTodoText) {
+        alert('Введите текст задачи');
+        return;
+      }
+
+      const newTodo = {
+        text: newTodoText,
+        createdAt: Date.now(),
+        completed: false,
+      };
+
+      try {
+        const responce = await fetch(`${host}`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json',},
+          body: JSON.stringify(newTodo),
+        });
+
+        if(!responce.ok) {
+          throw new Error (`Не удалось добавить задачу. Статус: ${responce.status}`);
+        }
+        
+        console.log('Задача добавлена');
+        getData(); //получение данных, обновление списка задач
+        taskInput.value = ''; // Очищаем поле ввода
+      } catch (error) {
+        console.error(`Ошибка добавления:`, error.message);
+      }
+    }
+    //1й способ добавления задачи
+    addButton.addEventListener('click', addTodo);
+    //2й способ
+    taskInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        addTodo();
+      }
+    });
+
+    //6. Реализовать обновление текста существующей задачи (UPDATE)
+    async function updateTodo(id, newText) {
+      try {
+        const responce = await fetch(`${host}/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({text: newText}),
+        });
+
+        if(!responce.ok) {
+          throw new Error (`Не удалось обновить задачу. Статус: ${responce.status}`);
+        }
+
+        console.log('Текст задачи обновлён');
+        getData(); //получение данных, обновление списка задач
+      } catch (error) {
+        console.error(`Ошибка обновления текста задачи:`, error.message);
+      }
+    }
+
+    //7. overlay, спиннер
+    function showLoader() {
+      overlay.style.display = 'flex';
+    }
+
+    function hideLoader() {
+      overlay.style.display = 'none';
+    }
+
+    downloadButton.addEventListener('click', getData);
+  </code>
+</pre>
+  <script>
+    //1. По нажатию на кнопку 'Получить задачи' мы получаем список задач
+    //2. Отрендерить задачи, создав их элементы динамически
+    //3. Реализовать удаление из списка отдельной задачи
+    //4. Реализовать изменение статуса задачи
+    //5. Реализовать добавление новой задачи
+    //6. Реализовать обновление текста существующей задачи
+    //7. overlay, спиннер
+    const container = document.getElementById('posts-container');
+    const taskInput = document.getElementById('task-input');
+    const addButton = document.getElementById('add-button');
+    const downloadButton = document.querySelector('.button-download');
+    const overlay = document.getElementById('overlay');
+    //создаём отдельную переменную для переиспользования URL API для работы с задачами
+    const host = 'https://68382f1e2c55e01d184c4d9a.mockapi.io/api/v1/todos';
+    // Загрузка данных с сервера (READ)
+    async function getData() {
+      try {
+        showLoader(); //реализация 7 пункта, показываем спиннер загрузки
+        const responce = await fetch(host); // GET запрос к серверу
+        //старый вариант:
+        // const responce = await fetch('https://68382f1e2c55e01d184c4d9a.mockapi.io/api/v1/todos');
+        if(!responce.ok) {
+          throw new Error (`Данные не получены. Статус: ${responce.status}`)
+        }
+        const data = await responce.json(); // Преобразуем ответ в JSON
+        console.log('Данный получены', data);
+        renderData(data); // Отображаем задачи на странице
+      } catch (error) {
+        console.error(`Ошибка получения данных:`, error.message);
+      }
+    }
+    // Отрисовка задач на странице 
+    function renderData(todos) {
+      container.innerHTML = ''; //очищаем контейнер перед каждым вызовом функции
+      
+      todos.forEach((todo) => {
+        const todoElement = document.createElement('div');
+        //добавляем заготовленные стили для каждой задачи
+        todoElement.classList.add('todo');
+        //создаём чекбокс динамически и задаём ему тип + статус состояния
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = todo.completed;
+        //для реализации 4 задачи на изменение статуса
+        checkbox.addEventListener('change', () => toogleTodoStatus(todo.id, checkbox.checked));
+        //создаём элемент для текста задачи
+        const textElement = document.createElement('p');
+        textElement.textContent = todo.text;
+        //зачёркивать задачу при отметки о выполнении
+        textElement.style.textDecoration = todo.completed ? 'line-through' : 'none';
+
+        //создаём элемент с датой и форматируем её
+        const timeElement = document.createElement('p');
+        timeElement.textContent = new Date(todo.createdAt).toLocaleString('ru-RU', {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+        //создаём кнопку удаления внутри задачи с заготовленными стилями
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('button-function');
+        const deleteIcon = document.createElement('img'); //внутри кнопки иконка
+        deleteIcon.src = '/img/icon-delete.png';
+        deleteIcon.alt = 'Удалить';
+        deleteIcon.title = 'Удалить';
+        deleteButton.append(deleteIcon);
+        //навешиваем обработчик на кнопку, вызываем функцию deleteTodo, куда пробрасываем id задач
+        deleteButton.addEventListener("click", () => deleteTodo(todo.id));
+
+        // Кнопка обновления текста задачи
+        const updateButton = document.createElement('button');
+        updateButton.classList.add('button-function');
+        const updateIcon = document.createElement('img');
+        updateIcon.src = '/img/icon-update.png';
+        updateIcon.alt = 'Изменить';
+        updateIcon.title = 'Изменить';
+        updateButton.append(updateIcon);
+        //Добавляем для 6 пункта, обновление текста существующей задачи
+        updateButton.addEventListener('click', () => {
+          const newText = prompt('Введите новый текст задачи', todo.text);
+          if (newText) {
+            updateTodo(todo.id, newText);
+          }
+        });
+
+        //пробрасываем всё это в todo элемент
+        todoElement.append(checkbox, textElement, timeElement, deleteButton, updateButton);
+        container.append(todoElement);
+        downloadButton.hidden = true; //скрываем кнопку получения задач после их рендера
+        hideLoader(); //реализация 7 пункта
+      }); 
+    }
+
+    //3. Реализовать удаление из списка отдельной задачи (DELETE)
+    async function deleteTodo(id) {
+      try {
+        const responce = await fetch(`${host}/${id}`, { method: 'DELETE' });
+        //старый вариант:
+        // const response = await fetch(`https://68382f1e2c55e01d184c4d9a.mockapi.io/api/v1/todos/${id}`);
+        if(!responce.ok) {
+          throw new Error (`Не удалось удалить задачу. Статус: ${responce.status}`);
+        }
+        console.log('Задача удалена');
+        getData(); //получение данных, обновление списка задач
+      } catch (error) {
+        console.error(`Ошибка удаления:`, error.message);
+      }
+    }
+
+    //4. Реализовать изменение статуса задачи (PUT)
+    //параметры будут приходить из функции где отрендерились все задачи
+    async function toogleTodoStatus(id, completed) {
+      try {
+        //дополнительно понадобятся заголовки и тело
+        const responce = await fetch(`${host}/${id}`, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json',},
+          body: JSON.stringify({completed}),
+        });
+        if(!responce.ok) {
+          throw new Error (`Не удалось обновить статус задачи. Статус: ${responce.status}`);
+        }
+        console.log('Статус задачи обновлён');
+        getData(); //получение данных, обновление списка задач
+      } catch (error) {
+        console.error(`Ошибка обновления статуса задачи:`, error.message);
+      }
+    }
+
+    //5. Реализовать добавление новой задачи (CREATE)
+    async function addTodo() {
+      const newTodoText = taskInput.value.trim();
+      if (!newTodoText) {
+        alert('Введите текст задачи');
+        return;
+      }
+
+      const newTodo = {
+        text: newTodoText,
+        createdAt: Date.now(),
+        completed: false,
+      };
+
+      try {
+        const responce = await fetch(`${host}`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json',},
+          body: JSON.stringify(newTodo),
+        });
+
+        if(!responce.ok) {
+          throw new Error (`Не удалось добавить задачу. Статус: ${responce.status}`);
+        }
+        
+        console.log('Задача добавлена');
+        getData(); //получение данных, обновление списка задач
+        taskInput.value = ''; // Очищаем поле ввода
+      } catch (error) {
+        console.error(`Ошибка добавления:`, error.message);
+      }
+    }
+    //1й способ добавления задачи
+    addButton.addEventListener('click', addTodo);
+    //2й способ
+    taskInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        addTodo();
+      }
+    });
+
+    //6. Реализовать обновление текста существующей задачи (UPDATE)
+    async function updateTodo(id, newText) {
+      try {
+        const responce = await fetch(`${host}/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({text: newText}),
+        });
+
+        if(!responce.ok) {
+          throw new Error (`Не удалось обновить задачу. Статус: ${responce.status}`);
+        }
+
+        console.log('Текст задачи обновлён');
+        getData(); //получение данных, обновление списка задач
+      } catch (error) {
+        console.error(`Ошибка обновления текста задачи:`, error.message);
+      }
+    }
+
+    //7. overlay, спиннер
+    function showLoader() {
+      overlay.style.display = 'flex';
+    }
+
+    function hideLoader() {
+      overlay.style.display = 'none';
+    }
+
+    downloadButton.addEventListener('click', getData);
+  </script>
 </body>
 </html>
